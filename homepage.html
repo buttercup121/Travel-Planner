@@ -1,0 +1,2446 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Planner</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+<script src="language.json" defer></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Open Sans', Arial, sans-serif;
+            background-color: #2c3e50;
+            color: white;
+            overflow-x: hidden;
+        }
+  
+     
+        .container {
+            text-align: center;
+            background-image: url('https://source.unsplash.com/1600x900/?travel,airplane');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 20px;
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
+            z-index: -1;
+        }
+
+        .header-image {
+            width: 150%;
+            height: 100vh;  /* Adjust height for better presentation */
+            object-fit: cover;
+            border-radius: 2.5px;
+        }
+
+header select{
+background-color: #34495e;
+color: white;
+border: 1px solid #ecf0f1;
+padding: 5px;
+fornt-size:16px;
+}
+        h1 {
+            font-size: 4.5em;
+            font-family: 'Lora', serif;
+            font-weight: bold;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+            margin: 20px 0;
+            color: #f2f2f2;
+        }
+
+        .action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 0;  /* Removed margin */
+    flex-wrap: wrap;
+}
+
+        .action-buttons a {
+            background: linear-gradient(45deg, #63b8ff, #87cefa);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.3em;
+            font-weight: bold;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+       /* animation: bounce 2s infinite; *//* Apply the new animation */
+}
+
+.action-buttons a:hover {
+    background: linear-gradient(45deg, #1e90ff, #00bfff);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+/* Add a pulsing animation */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+}
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+
+        .action-buttons i {
+            font-size: 1.6em;
+        }
+
+
+       .search-containers {
+            display: flex;
+            justify-content: center;
+            align-items: right;
+            height: auto;
+            margin: 0;
+position: absolute;
+    top: 10px;
+    right: 0;
+
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            margin: 0;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f8f8f8;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            padding: 5px 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            padding: 10px;
+            border-radius: 25px;
+            flex: 1;
+            font-size: 1rem;
+        }
+.search-bar inputs {
+            border: none;
+            outline: none;
+            padding: 10px;
+            border-radius: 25px;
+            flex: 1;
+            font-size: 1rem;
+        }
+
+        .search-bar button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0 10px;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .search-bar button i {
+            font-size: 1.2rem;
+        }
+
+    
+
+       /* Main Chatbot Button */
+.chatbot-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(45deg, #1e90ff, #00bfff);
+    color: white;
+    font-size: 24px;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.chatbot-button:hover {
+    background-color: #0056b3;
+}
+
+/* Chatbot Container */
+.chat-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 350px;
+    height: 450px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    display: none; /* Hidden by default */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    z-index: 9999;
+}
+
+/* Chat Header */
+.chat-header {
+   background: linear-gradient(45deg, #1e90ff, #00bfff);
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Close Button */
+.close-btn {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #f44336;
+}
+
+/* Chat Box */
+.chat-box {
+    padding: 15px;
+    height: 300px;
+    overflow-y: auto;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    border-bottom: 1px solid #ddd;
+}
+
+/* User and Bot Messages */
+.user-message, .bot-response {
+    margin: 10px 0;
+    padding: 8px;
+    border-radius: 10px;
+    max-width: 80%;
+}
+
+.user-message {
+    background-color: #d1e7ff;
+    color: #333; /* Darker text for readability */
+    align-self: flex-start;
+}
+
+.bot-response {
+    background-color: #f1f1f1;
+    color: #333; /* Darker text for readability */
+    align-self: flex-end;
+}
+
+/* Chat Input Section */
+.chat-input-container {
+    display: flex;
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#userInput {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-right: 10px;
+}
+
+button {
+     background: linear-gradient(45deg, #1e90ff, #00bfff);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Hide the chat window when it's closed */
+.chat-container.hidden {
+    display: none;
+}
+
+
+
+.packages-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.package-box {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border-radius: 15px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.package-box img {
+    width: 100%;
+    height: 200px;  /* Fixed height */
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.package-box h3 {
+    font-size: 1.8em;
+    margin-top: 15px;
+}
+
+.package-box p {
+    font-size: 1em;
+    margin: 10px 0;
+    text-align: left;
+}
+
+.package-box .book-now {
+    background: linear-gradient(45deg, #63b8ff, #87cefa);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.3em;
+            font-weight: bold;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+/*animation: bounce 3s linear infinite;*/
+}
+
+.package-box .book-now:hover {
+    background: linear-gradient(45deg, #1e90ff, #00bfff);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+.package-box {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; 
+}
+.package-box p strong {
+    font-weight: bold;
+}
+
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3.5em;
+            }
+
+            p {
+                font-size: 1.2em;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .action-buttons a {
+                width: 90%;
+                padding: 15px;
+                text-align: center;
+            }
+
+.packages-section {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+         
+    .package-box {
+        width: 100%;
+        max-width: 100%;
+    }
+
+        }
+        .header-container {
+            position: relative;
+            width: 100%;
+            max-height: 500px; /* Adjust as needed */
+            overflow: hidden;
+        }
+
+        .header-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .header-text {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10rem; /* Adjust size as needed */
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            text-align: center;
+            white-space: nowrap; /* Prevents the text from breaking to the next line */
+        }
+  
+
+
+	footer {
+    color: white; /* Footer text color */
+    text-align: center;
+    padding: 15px;
+    margin-top: auto; /* Ensures the footer is pushed to the bottom */
+    font-size: 1rem;
+}
+.no-results {
+            text-align: center;
+            font-size: 1.5em;
+            color: #f2f2f2;
+            margin-top: 30px;
+        }
+
+
+
+/*LOGO*/
+ .top-left-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.top-left-image img {
+    width: 105px; /* Set the width as per your preference */
+    height:  50px;
+
+}
+
+
+/*.top-image img {*/
+  /*  width: 105px;   */
+  /*  height:  50px;*/
+  /* animation: spin 3s linear infinite;  */
+/*}*/
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px ;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        header .top-left-image {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        header nav {
+            margin-top: 0px;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 0px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+
+        header nav a:hover {
+            background-color: #34495e;
+            border-radius: 5px;
+        }
+html[lang="ur"] {
+    direction: rtl;
+    font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', sans-serif;
+}
+h3{
+	 text-align: center;
+font-size: 4.5em;
+            font-family: 'Lora', serif;
+            font-weight: bold;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+          
+            color: #f2f2f2;
+
+
+}
+     marquee {
+      position: relative;
+      display: flex;
+      align-items: center; /* Center text vertically */
+      height: 50px; /* Adjust height for both the person and text */
+      line-height: 50px; /* Center text vertically */
+      white-space: nowrap; /* Ensure the content is in a single line */
+    }
+
+    .walking-person {
+      position: absolute;
+      left: 0;
+      top: 50%; /* Center vertically */
+      transform: translateY(-50%);
+      width: 48px;
+      height: 30px; /* Height for walking person */
+      margin-right: 20px; /* Increase space between person and stars */
+    }
+    .body {
+      fill: white;
+    }
+
+    .leg-left, .leg-right {
+      fill: white;
+      animation: walk-legs 0.8s ease-in-out infinite;
+      transform-origin: top;
+    }
+
+    .leg-right {
+      animation-delay: 0.4s; /* Opposite movement for the other leg */
+    }
+
+    .arm-left, .arm-right {
+      fill:  white;
+      animation: swing-arms 0.8s ease-in-out infinite;
+      transform-origin: top;
+    }
+
+    .arm-right {
+      animation-delay: 0.4s; /* Opposite movement for the other arm */
+    }
+
+    /* Legs Walking Animation */
+    @keyframes walk-legs {
+      0%, 100% {
+        transform: rotate(20deg);
+      }
+      50% {
+        transform: rotate(-20deg);
+      }
+    }
+
+    /* Arms Swinging Animation */
+    @keyframes swing-arms {
+      0%, 100% {
+        transform: rotate(-20deg);
+      }
+      50% {
+        transform: rotate(20deg);
+      }
+    }
+   .stars {
+      margin-left: 70px; /* Adjust this value to set the gap between stars and walking person */
+      display: flex;
+      align-items: center;
+    }
+
+    .stars i {
+      margin-right: 5px; /* Space between stars */
+    }
+
+
+  /* Inverts colors for the entire body */
+.invert-colors {
+    filter: invert(1);
+    background-color: black;
+    color: white;
+}
+
+.invert-button {
+    all: unset; /* Resets all default styles */
+    padding: 10px 15px; /* Matches the nav link padding */
+    font-size: 1.1em; /* Matches the nav link font size */
+    cursor: pointer;
+    color: white; /* Matches the nav link text color */
+    background-color: transparent; /* Ensures no background by default */
+    text-decoration: none; /* Removes any underline */
+    margin: 0 5px; /* Adjust margin for spacing */
+    transition: all 0.3s ease; /* Matches nav link transitions */
+    display: inline-block; /* Ensures consistent layout */
+    border: none; /* Removes button borders */
+    border-radius: 0; /* No default border radius */
+}
+
+
+.invert-button img {
+    width: 24px;
+    height: 24px;
+    filter: invert(100%);
+}
+
+.invert-button:hover img {
+    filter: invert(100%);
+}  
+
+/* Define keyframe animation for the spinning effect */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/*ICON ANIMATION*/
+/*@keyframes slideIn {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.icon:hover {
+  animation: slideIn 0.5s ease-out;
+}*/
+
+/* Style for the icon */
+.icon {
+  display: inline-block;
+  font-size: 30px;  /* Adjust size as needed */
+  transition: transform 0.5s ease-in-out;  /* Smooth transition */
+}
+
+/* Apply spin animation when the icon is hovered */
+.icon:hover {
+  animation: spin 1s linear;  /* transform: rotate(45deg); Apply spin animation when hovered */
+}
+
+/* Apply spinning effect to the button when hovering over the button */
+button:hover .icon {
+  animation: spin 1s linear;  /* Apply spin animation to the icon inside the button */
+}
+.invert-button:hover {
+ background-color: #34495e;
+            border-radius: 5px;
+}
+
+
+    </style>
+</head>
+<body>
+<header role="banner">
+    <nav role="navigation">
+        <div class="top-left-image">
+            <img src="C:\Users\WALLED TRADERS\OneDrive\Pictures\Saved Pictures\logo.jpeg" alt="Travel Planner Logo">
+        </div>
+        <a href="homepage.html" id="homeBtn" aria-label="Go to Home" tabindex="0">
+            <i class="fas fa-home"></i> <span data-translate="home">Home</span>
+        </a>
+        <a href="aboutus.html" id="aboutusBtn" aria-label="About Us" tabindex="0">
+            <i class="fas fa-info-circle"></i> <span data-translate="aboutUs">About Us</span>
+        </a>
+        <a href="contact.html" id="contactBtn" aria-label="Contact Us" tabindex="0">
+            <i class="fas fa-phone-alt fa-flip-horizontal"></i> <span data-translate="contactUs">Contact Us</span>
+        </a>
+        <a href="feedback.html" id="feedbackBtn" aria-label="Feedback" tabindex="0">
+            <i class="fas fa-comment-dots"></i> <span data-translate="feedback">Feedback</span>
+        </a>
+  
+ <button id="invertColorsButton" class="invert-button" aria-label="Invert Colors">
+    <i class="fas fa-adjust"></i> <span data-translate="invertColors">Invert Colors</span>
+
+
+</button>
+        <label for="language" id="lanBtn" class="sr-only">Select Language</label>
+        <select id="language" aria-label="Select Language" tabindex="0">
+            <option value="en">English</option>
+            <option value="ur">اردو</option>
+            <option value="zh">中文</option>
+            <option value="ru">Русский</option>
+            <option value="ar">العربية</option>
+            <option value="tr">Türkçe</option>
+            <option value="de">Deutsch</option>
+        </select>
+    </nav>
+
+    <div class="search-containers">
+        <div class="search-bar">
+            <label for="search-inputs" class="sr-only">Search your package</label>
+            <input type="text" placeholder="Search your package" id="search-inputs" aria-label="Search Packages" tabindex="0"  onkeyup="performSearchs()" />
+            <button onclick="performSearchs()" aria-label="Search">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+
+    <br>
+
+    <marquee role="region" aria-label="Scrolling Animation with Walking Person">
+        <div class="walking-person" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+                <!-- Head -->
+                <circle cx="30" cy="10" r="6" class="body" />
+                <!-- Body -->
+                <rect x="26" y="18" width="6" height="13" class="body" />
+                <!-- Left Leg -->
+                <rect class="leg-left" x="26" y="38" width="4" height="8" />
+                <!-- Right Leg -->
+                <rect class="leg-right" x="30" y="38" width="4" height="8" />
+                <!-- Left Arm -->
+                <rect class="arm-left" x="22" y="23" width="4" height="6" />
+                <!-- Right Arm -->
+                <rect class="arm-right" x="34" y="23" width="4" height="6" />
+            </svg>
+        </div>
+
+        <div class="stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <span data-translate="newYearDiscount">New Year Discount</span>
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+    </marquee>
+</header>
+
+
+<div class="header-container">
+    <div style="position: relative; width: 100%; height: 100vh; overflow: hidden;">
+        <video autoplay loop muted playsinline style="position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: auto;" aria-hidden="true">
+            <source src="C:\Users\WALLED TRADERS\OneDrive\Pictures\Saved Pictures\logov.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <!-- Optional: Add a text alternative for screen readers if the video has essential content -->
+        <span class="sr-only">Background video showing [brief description of the content]</span>
+    </div>
+</div>
+
+     
+
+<br><br><br>
+
+<!-- Action Buttons -->
+<div class="action-buttons">
+    <a href="form.html" class="animated-button" id="formBtn" tabindex="0" aria-label="Fill out the form">
+        <i class="fas fa-pen icon" aria-hidden="true"></i> 
+        <span data-translate="fillForm">Fill Form</span>
+    </a>
+    <a href="booking.html" class="animated-button" id="bookNowBtn" tabindex="0" aria-label="Book a Hotel or Flight">
+        <i class="fas fa-plane-departure icon" aria-hidden="true"></i> 
+        <span data-translate="bookNow">Book Now</span>
+    </a>
+    <a href="destinations.html" class="animated-button" id="destinationsBtn" tabindex="0" aria-label="Explore travel destinations">
+        <i class="fas fa-map-marker-alt icon" aria-hidden="true"></i> 
+        <span data-translate="exploreDestinations">Explore Destinations</span>
+    </a>
+    <a href="graph.html" class="animated-button" id="graphBtn" tabindex="0" aria-label="View statistics and analytics">
+        <i class="fas fa-chart-line icon" aria-hidden="true"></i>  
+        <span data-translate="statistics">Tourism Analytics</span>
+    </a>
+</div>
+
+
+<h3><i class="fas fa-box-open"></i> <span data-translate="package">Packages</span></h3>
+
+<!-- Search Bar Section -->
+<div class="search-container">
+    <div class="search-bar">
+        <input type="text" placeholder="Search your package" id="search-input" 
+               aria-label="Search for travel packages" 
+               tabindex="0" onkeyup="performSearch()" />
+        <button onclick="performSearch()" 
+                aria-label="Search" 
+                tabindex="0">
+            <i class="fas fa-search" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+
+
+
+<br><br><br>
+<div class="packages-section" id="packages-section" tabindex="0">
+
+  <!-- Package 1 -->
+  <div class="package-box" tabindex="0">
+    <img src="https://imrmedia.in/wp-content/uploads/2023/01/India-China-Pakistan-disputed-areas-map.jpg" alt="logo" class="header-image">
+    <h3 data-translate="package1"  tabindex="0">Package 1</h3>
+    <p><strong data-translate="countries">Countries</strong>:
+        <span data-translate="pakistan">Pakistan</span>, 
+        <span data-translate="china">China</span>, 
+        <span data-translate="india">India</span>
+    </p>
+    <p>
+        <strong data-translate="duration">Duration</strong>:
+        <span data-translate="sevenDays">7 Days</span>
+    </p>
+    <p>
+        <strong data-translate="hotels">Hotels</strong>: 
+        <span data-translate="pakistan">Pakistan</span>: <span data-translate="pcHotel">PC Hotel</span><br>
+        <span data-translate="china">China</span>: <span data-translate="peninsulaBeijing">PeninsulaBeijing</span><br>
+        <span data-translate="india">India</span>: <span data-translate="tajMahalPalace">TajMahal Palace</span>
+    </p>
+    <p><strong data-translate="price">Price:</strong>: <span data-translate="fifteenHundred">$1500</span></p>
+    <a href="form.html" id="f1Btn" class="book-now" ><i class="fas fa-plane-departure"></i> <span data-translate="bookNowButton">Book Now</span></a>
+</div>
+
+<!-- Package 2 -->
+<div class="package-box"  tabindex="0">
+    <img src="https://www.getawayafrica.com/wp-content/uploads/2019/08/Paris-Zurich-Venice.jpg" alt="logo" class="header-image">
+    <h3 data-translate="package2"  tabindex="0">Package 2</h3>
+    <p><strong data-translate="countries">Countries</strong>:
+        <span data-translate="switzerland">Switzerland</span>, 
+        <span data-translate="france">France</span>, 
+        <span data-translate="italy">Italy</span>
+    </p>
+    <p>
+        <strong data-translate="duration">Duration</strong>:
+        <span data-translate="tenDays">10 Days</span>
+    </p>
+    <p>
+        <strong data-translate="hotels">Hotels</strong>: 
+        <span data-translate="switzerland">Switzerland</span>: <span data-translate="badruttsPalace">Badrutt's Palace</span><br>
+        <span data-translate="france">France</span>: <span data-translate="leBristolParis">Le Bristol Paris</span><br>
+        <span data-translate="italy">Italy</span>: <span data-translate="hotelDanieliVenice">Hotel Danieli, Venice</span>
+    </p>
+    <p><strong data-translate="price">Price:</strong>: <span data-translate="price-2000">$2000</span></p>
+      <a href="form.html" id="f2Btn" class="book-now" ><i class="fas fa-plane-departure"></i> <span data-translate="bookNowButton">Book Now</span></a>
+</div>
+
+<!-- Package 3 -->
+<div class="package-box"  tabindex="0">
+    <img src="https://www.stictravel.com/images/packages/extraimages/4962_8-Days-A-Piece-Greece-Slice-Sicily10072021.jpg" alt="logo" class="header-image">
+    <h3 data-translate="package3" tabindex="0">Package 3</h3>
+    <p><strong data-translate="countries">Countries</strong>:
+        <span data-translate="italy">Italy</span>, 
+        <span data-translate="spain">Spain</span>, 
+        <span data-translate="greece">Greece</span>
+    </p>
+    <p>
+        <strong data-translate="duration">Duration</strong>:
+        <span data-translate="eightDays">8 Days</span>
+    </p>
+    <p>
+        <strong data-translate="hotels">Hotels</strong> 
+        <span data-translate="italy">Italy</span>: <span data-translate="hotelDanieliVenice">Hotel Danieli, Venice</span><br>
+        <span data-translate="spain">Spain</span>: <span data-translate="hotelArtsBarcelona">Hotel Arts, Barcelona</span><br>
+        <span data-translate="greece">Greece</span>: <span data-translate="canavesOiaSantorini">Canaves Oia, Santorini</span>
+    </p>
+    <p><strong data-translate="price">Price</strong>: <span data-translate="price-1800">$1800</span></p>
+      <a href="form.html" id="f3Btn" class="book-now" ><i class="fas fa-plane-departure"></i> <span data-translate="bookNowButton">Book Now</span></a>
+</div>
+
+<!-- Package 4 -->
+<div class="package-box" tabindex="0">
+    <img src="https://as1.ftcdn.net/jpg/01/74/87/60/1000_F_174876087_gzOXjKkRFMOgW11v8PvCEODOFO2vLe2s.jpg" alt="logo" class="header-image">
+    <h3 data-translate="package4" tabindex="0">Package 4</h3>
+    <p><strong data-translate="countries">Countries</strong>: 
+        <span data-translate="japan">Japan</span>, 
+        <span data-translate="southKorea">South Korea</span>, 
+        <span data-translate="china">China</span>
+    </p>
+    <p><strong data-translate="duration">Duration</strong>: 
+        <span data-translate="sevenDays">7 Days</span>
+    </p>
+    <p><strong data-translate="hotels">Hotels</strong>: 
+        <span data-translate="japan">Japan</span>: <span data-translate="parkHyattTokyo">Park Hyatt Tokyo</span><br>
+        <span data-translate="southKorea">South Korea</span>: <span data-translate="theShillaSeoul">The Shilla Seoul</span><br>
+        <span data-translate="china">China</span>: <span data-translate="thePeninsulaBeijing">The Peninsula Beijing</span>
+    </p>
+    <p><strong data-translate="price">Price</strong>: 
+        <span data-translate="price-1700">$1700</span>
+    </p>
+   <a href="form.html" id="f4Btn" class="book-now" ><i class="fas fa-plane-departure"></i> <span data-translate="bookNowButton">Book Now</span></a></div>
+
+<!-- Package 5 -->
+<div class="package-box"  tabindex="0">
+    <img src="https://aboutaustralia.com/wp-content/uploads/2024/05/WLG-CHC-ZQN-SYD-AYQ-PD-MEL-NAN-AA-31061.png" alt="logo" class="header-image">
+    <h3 data-translate="package5"  tabindex="0">Package 5</h3>
+    <p><strong data-translate="countries">Countries</strong>: 
+        <span data-translate="australia">Australia</span>, 
+        <span data-translate="newZealand">New Zealand</span>, 
+        <span data-translate="fiji">Fiji</span>
+    </p>
+    <p><strong data-translate="duration">Duration</strong>: 
+        <span data-translate="nineDays">9 Days</span>
+    </p>
+    <p><strong data-translate="hotels">Hotels</strong>: 
+        <span data-translate="australia">Australia</span>: <span data-translate="shangriLaSydney">Shangri-La, Sydney</span><br>
+        <span data-translate="newZealand">New Zealand</span>: <span data-translate="hiltonAuckland">Hilton Auckland</span><br>
+        <span data-translate="fiji">Fiji</span>: <span data-translate="likulikuLagoonResort">Likuliku Lagoon Resort</span>
+    </p>
+    <p><strong data-translate="price">Price</strong>: 
+        <span data-translate="price-2200">$2200</span>
+    </p>
+      <a href="form.html"id="f5Btn" class="book-now" ><i class="fas fa-plane-departure"></i> <span data-translate="bookNowButton">Book Now</span></a>
+</div>
+
+<!-- Package 6 -->
+<div class="package-box" tabindex="0">
+    <img src="https://www.eda.admin.ch/content/dam/deza/Images/Karten/africa_north_deza_en_web.jpg/jcr:content/renditions/cq5dam.thumbnail.588.368.png" alt="logo" class="header-image">
+    <h3 data-translate="package6"  tabindex="0">Package 6</h3>
+    <p><strong data-translate="countries">Countries</strong>: 
+        <span data-translate="ethiopia">Ethiopia</span>, 
+        <span data-translate="kenya">Kenya</span>, 
+        <span data-translate="tanzania">Tanzania</span>
+    </p>
+    <p><strong data-translate="duration">Duration</strong>: 
+        <span data-translate="tenDays">10 Days</span>
+    </p>
+    <p><strong data-translate="hotels">Hotels</strong>: 
+        <span data-translate="ethiopia">Ethiopia</span>: <span data-translate="sheratonAddis">Sheraton Addis</span><br>
+        <span data-translate="kenya">Kenya</span>: <span data-translate="giraffeManor">Giraffe Manor</span><br>
+        <span data-translate="tanzania">Tanzania</span>: <span data-translate="ngorongoroCraterLodge">Ngorongoro Crater Lodge</span>
+    </p>
+    <p><strong data-translate="price">Price</strong>: 
+        <span data-translate="price-2500">$2500</span>
+    </p>
+      <a href="form.html" id="f6Btn" class="book-now" ><i class="fas fa-plane-departure"></i> <span data-translate="bookNowButton">Book Now</span></a>
+</div>
+
+<!-- Package 7 -->
+<div class="package-box" tabindex="0">
+    <img src="https://cloudfront-eu-central-1.images.arcpublishing.com/williamreed/3FTUCNRZ6JIV3ADWNA4NOUTLCU.jpg" alt="logo" class="header-image">
+    <h3 data-translate="package7" tabindex="0">Package 7</h3>
+    <p><strong data-translate="countries">Countries</strong>: 
+        <span data-translate="uae">UAE</span>, 
+        <span data-translate="oman">Oman</span>, 
+        <span data-translate="qatar">Qatar</span>
+    </p>
+    <p><strong data-translate="duration">Duration</strong>: 
+        <span data-translate="fiveDays">5 Days</span>
+    </p>
+    <p><strong data-translate="hotels">Hotels</strong>: 
+        <span data-translate="uae">UAE</span>: <span data-translate="atlantisThePalm">Atlantis, The Palm</span><br>
+        <span data-translate="oman">Oman</span>: <span data-translate="alBustanPalace">Al Bustan Palace</span><br>
+        <span data-translate="qatar">Qatar</span>: <span data-translate="bananaIslandResortDoha">Banana Island Resort Doha</span>
+    </p>
+    <p><strong data-translate="price">Price</strong>: 
+        <span data-translate="price-1600">$1600</span>
+    </p>
+   <a href="form.html"id="f7Btn" class="book-now" ><i class="fas fa-plane-departure"></i> <span data-translate="bookNowButton">Book Now</span></a>
+</div>
+
+<!-- Package 8 -->
+<div class="package-box" tabindex="0">
+    <img src="https://www.economist.com/sites/default/files/images/2017/02/articles/body/20170211_eum975.png" alt="logo" class="header-image">
+    <h3 data-translate="package8" tabindex="0">Package 8</h3>
+    <p><strong data-translate="countries">Countries</strong>: 
+        <span data-translate="brazil">Brazil</span>, 
+        <span data-translate="argentina">Argentina</span>, 
+        <span data-translate="chile">Chile</span>
+    </p>
+    <p><strong data-translate="duration">Duration</strong>: 
+        <span data-translate="elevenDays">11 Days</span>
+    </p>
+    <p><strong data-translate="hotels">Hotels</strong>: 
+        <span data-translate="brazil">Brazil</span>: <span data-translate="copacabanaPalace">Copacabana Palace</span><br>
+        <span data-translate="argentina">Argentina</span>: <span data-translate="alvearPalaceHotel">Alvear Palace Hotel</span><br>
+        <span data-translate="chile">Chile</span>: <span data-translate="singularPatagonia">The Singular Patagonia</span>
+    </p>
+    <p><strong data-translate="price">Price</strong>: 
+        <span data-translate="price-2400">$2400</span>
+    </p>
+      <a href="form.html"id="f8Btn" class="book-now" ><i class="fas fa-plane-departure"></i> <span data-translate="bookNowButton">Book Now</span></a>
+</div>
+
+<!-- Package 9 -->
+<div class="package-box"  tabindex="0">
+    <img src="https://i.pinimg.com/736x/be/06/e9/be06e9461ac245567bc6df716551baf5.jpg" alt="logo" class="header-image">
+    <h3 data-translate="package9" tabindex="0">Package 9</h3>
+    <p><strong data-translate="countries">Countries</strong>: 
+        <span data-translate="malaysia">Malaysia</span>, 
+        <span data-translate="singapore">Singapore</span>, 
+        <span data-translate="thailand">Thailand</span>
+    </p>
+    <p><strong data-translate="duration">Duration</strong>: 
+        <span data-translate="sevenDays">7 Days</span>
+    </p>
+    <p><strong data-translate="hotels">Hotels</strong>: 
+        <span data-translate="malaysia">Malaysia</span>: <span data-translate="theDataiLangkawi">The Datai Langkawi</span><br>
+        <span data-translate="singapore">Singapore</span>: <span data-translate="marinaBaySands">Marina Bay Sands</span><br>
+        <span data-translate="thailand">Thailand</span>: <span data-translate="anantaraSiamBangkokResort">Anantara Siam Bangkok Resort</span>
+    </p>
+    <p><strong data-translate="price">Price</strong>: 
+        <span data-translate="price-2100">$2100</span>
+    </p>
+   <a href="form.html" id="f9Btn" class="book-now" ><i class="fas fa-plane-departure"></i> <span data-translate="bookNowButton">Book Now</span></a>
+</div>
+
+<!-- Package 10 -->
+<div class="package-box"  tabindex="0" >
+    <img src="https://anotefromabroad.com/wp-content/uploads/2015/04/image5.jpg" alt="logo" class="header-image">
+    <h3 data-translate="package10" tabindex="0">Package 10</h3>
+    <p><strong data-translate="countries">Countries</strong>: 
+        <span data-translate="thailand">Thailand</span>, 
+        <span data-translate="cambodia">Cambodia</span>, 
+        <span data-translate="vietnam">Vietnam</span>
+    </p>
+    <p><strong data-translate="duration">Duration</strong>: 
+        <span data-translate="eightDays">8 Days</span>
+    </p>
+    <p><strong data-translate="hotels">Hotels</strong>: 
+        <span data-translate="thailand">Thailand</span>: <span data-translate="theSiamHotel">The Siam Hotel</span><br>
+        <span data-translate="cambodia">Cambodia</span>: <span data-translate="rafflesHotelLeRoyal">Raffles Hotel Le Royal</span><br>
+        <span data-translate="vietnam">Vietnam</span>: <span data-translate="intercontinentalHanoiWestlake">InterContinental Hanoi Westlake</span>
+    </p>
+    <p><strong data-translate="price">Price</strong>: 
+        <span data-translate="price-1900">$1900</span>
+    </p>
+   <a href="form.html" id="f10Btn" class="book-now" ><i class="fas fa-plane-departure"></i> <span data-translate="bookNowButton">Book Now</span></a>
+</div>
+
+<!-- Package 11 -->
+<div class="package-box"  tabindex="0">
+    <img src="https://c8.alamy.com/comp/2WDHPYR/geographical-location-of-maldives-sri-lanka-and-india-2WDHPYR.jpg" alt="logo" class="header-image">
+    <h3 data-translate="package11" tabindex="0">Package 11</h3>
+    <p><strong data-translate="countries">Countries</strong>: 
+        <span data-translate="maldives">Maldives</span>, 
+        <span data-translate="sriLanka">Sri Lanka</span>, 
+        <span data-translate="seychelles">Seychelles</span>
+    </p>
+    <p><strong data-translate="duration">Duration</strong>: 
+        <span data-translate="tenDays">10 Days</span>
+    </p>
+    <p><strong data-translate="hotels">Hotels</strong>: 
+        <span data-translate="maldives">Maldives</span>: <span data-translate="sonevaFushi">Soneva Fushi</span><br>
+        <span data-translate="sriLanka">Sri Lanka</span>: <span data-translate="amangalla">Amangalla</span><br>
+        <span data-translate="seychelles">Seychelles</span>: <span data-translate="northIsland">North Island</span>
+    </p>
+    <p><strong data-translate="price">Price</strong>: 
+        <span data-translate="price-3000">$3000</span>
+    </p>
+      <a href="form.html" id="f11Btn" class="book-now" ><i class="fas fa-plane-departure"></i> <span data-translate="bookNowButton">Book Now</span></a>
+</div>
+
+<!-- Package 12 -->
+<div class="package-box" tabindex="0">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWidOdfIW0VWhxZZ5yGRd2qhHn2gelekJLCg&s" alt="logo" class="header-image">
+    <h3 data-translate="package12" tabindex="0">Package 12</h3>
+    <p><strong data-translate="countries">Countries</strong>: 
+        <span data-translate="egypt">Egypt</span>, 
+        <span data-translate="morocco">Morocco</span>, 
+        <span data-translate="tunisia">Tunisia</span>
+    </p>
+    <p><strong data-translate="duration">Duration</strong>: 
+        <span data-translate="sevenDays">7 Days</span>
+    </p>
+    <p><strong data-translate="hotels">Hotels</strong>: 
+        <span data-translate="egypt">Egypt</span>: <span data-translate="theNileRitzCarlton">The Nile Ritz-Carlton</span><br>
+        <span data-translate="morocco">Morocco</span>: <span data-translate="laMamounia">La Mamounia</span><br>
+        <span data-translate="tunisia">Tunisia</span>: <span data-translate="theResidenceTunis">The Residence Tunis</span>
+    </p>
+    <p><strong data-translate="price">Price</strong>: 
+        <span data-translate="price-2300">$2300</span>
+    </p>
+  <a href="form.html" id="f12Btn" class="book-now" ><i class="fas fa-plane-departure"></i> <span data-translate="bookNowButton">Book Now</span></a>
+</div>
+</div>
+
+   <!-- No Results Message -->
+<div id="no-results-message" class="no-results" style="display: none;" tabindex="0">
+  <span data-translate="noResultsMessage">No Results Found.</span>
+</div>
+
+<div id="chatbotButton" onclick="toggleChat()" class="chatbot-button" aria-label="Open Chatbot" role="button" tabindex="0">
+        💬
+    </div>
+
+    <div id="chatContainer" class="chat-container" role="dialog" aria-labelledby="chatTitle" aria-hidden="true">
+        <div class="chat-header">
+            <span id="chatTitle" class="chat-title" data-translate="chatbotTitle">Study Planner Bot</span>
+            <span class="close-btn" onclick="closeChat()" aria-label="Close Chatbot">&#10006;</span>
+        </div>
+        <div id="chatBox" class="chat-box" aria-live="polite"></div>
+        <div class="chat-input-container">
+            <input type="text" id="userInput" placeholder="Ask me about your study plan..." oninput="autoGrow(this)" aria-label="Type your message" tabindex="0">
+            <button onclick="sendMessage()" aria-label="Send Message" tabindex="0">Send</button>
+        </div>
+    </div>
+
+
+<script>
+
+// Check if the invert-colors class should be applied on page load
+if (localStorage.getItem('isInverted') === 'true') {
+    document.body.classList.add('invert-colors');
+}
+
+// Toggle the "invert-colors" class and update localStorage
+document.getElementById('invertColorsButton').addEventListener('click', function () {
+    document.body.classList.toggle('invert-colors');
+    const isInverted = document.body.classList.contains('invert-colors');
+    localStorage.setItem('isInverted', isInverted); // Save the state
+});
+const chatContainer = document.getElementById("chatContainer");
+        const chatBox = document.getElementById("chatBox");
+        const userInput = document.getElementById("userInput");
+        const chatbotButton = document.getElementById("chatbotButton");
+
+        // Define responses with links
+       const responses = {
+    "hi": "Hello! How can I assist you with your travel planning?",
+    "hello": "Hi there! How can I help you plan your trip?",
+    "how to book a flight": "To book a flight, choose your destination and date, then fill in your details. You can start here: <a href='booking.html' target='_blank'>Book Now</a>.",
+    "how to book a hotel": "To book a hotel, select your destination, dates, and choose the room type. Check out our booking page: <a href='booking.html' target='_blank'>Book Now</a>.",
+    "recommend places": "Here are a few great destinations for you to explore:<br>1. <strong>Switzerland</strong> - Known for its stunning mountains and serene lakes.<br>2. <strong>Italy</strong> - A beautiful blend of art, culture, and history.<br>3. <strong>Canada</strong> - A perfect destination for nature lovers.<br><br>To learn more about these destinations, visit our <a href='destinations.html' target='_blank'>Explore Destinations</a>.",
+    "recommend hotels": "Some great hotels for a summer vacation are The Ritz-Carlton, Four Seasons, and Marriott. Would you like to book one? Visit our <a href='booking.html' target='_blank'>Book Now</a> page.",
+    "things to do in bali": "In Bali, you can enjoy the beaches, visit the temples, or hike Mount Agung! Explore more in our <a href='destinations.html' target='_blank'>Explore Destinations</a> section.",
+    "best time to visit paris": "The best time to visit Paris is from April to June or September to November, when the weather is mild and the crowds are smaller.",
+    "flights to bali": "I recommend checking with major airlines like Emirates, Qatar Airways, and Garuda Indonesia for flights to Bali. You can book your flight here: <a href='booking.html' target='_blank'>Book Now</a>.",
+    "hotels in bali": "Some great hotels in Bali are The Four Seasons Resort at Jimbaran Bay, The St. Regis Bali, and Ayana Resort. Book your stay at: <a href='booking.html' target='_blank'>Book Now</a>.",
+    "default": "I'm sorry, I didn't understand that. Can you please ask something else?"
+};
+
+
+        // Toggle chat visibility
+        function toggleChat() {
+            if (chatContainer.style.display === "none" || !chatContainer.style.display) {
+                chatContainer.style.display = "block";
+                chatbotButton.style.display = "none";
+            } else {
+                chatContainer.style.display = "none";
+                chatbotButton.style.display = "block";
+            }
+        }
+
+        // Close chat
+        function closeChat() {
+            chatContainer.style.display = "none";
+            chatbotButton.style.display = "block";
+        }
+
+        // Send message function
+        function sendMessage() {
+            const userText = userInput.value.trim();
+            if (userText !== "") {
+                const userMessage = document.createElement("div");
+                userMessage.classList.add("user-message");
+                userMessage.textContent = userText;
+                chatBox.appendChild(userMessage);
+
+                const botResponse = document.createElement("div");
+                botResponse.classList.add("bot-response");
+                botResponse.innerHTML = getBotResponse(userText); // Use innerHTML to render links
+                chatBox.appendChild(botResponse);
+
+                chatBox.scrollTop = chatBox.scrollHeight;
+                userInput.value = "";
+            }
+        }
+
+        // Get bot response with regular expression for flexible matching
+        function getBotResponse(userText) {
+            const userTextLower = userText.toLowerCase();
+
+            // Match various forms of asking for recommendations or places
+            if (/recommend.*places|suggest.*places|recommend.*place|places.*to.*go|places|recommendations|show.*places|where.*to.*go/.test(userTextLower)) {
+                return responses["recommend places"];
+            }
+
+            // Match phrases related to booking flights
+            if (/how.*book.*flight|how.*book.*ticket|book.*flight|flight.*booking|flight|booking/.test(userTextLower)) {
+                return responses["how to book a flight"];
+            }
+
+            // Match phrases related to booking hotels
+            if (/how.*book.*hotel|how.*book.*room|book.*hotel|hotel.*booking|hotel|booking/.test(userTextLower)) {
+                return responses["how to book a hotel"];
+            }
+
+ if (/hi/.test(userTextLower)) {
+                return responses["hi"];
+            }
+if (/hello/.test(userTextLower)) {
+                return responses["hello"];
+            }
+            // Default response if no match
+            return responses["default"];
+        }
+
+        // Auto-resize input field
+        function autoGrow(field) {
+            field.style.height = "24px";
+            field.style.height = (field.scrollHeight) + "px";
+        }
+    </script>
+
+  <script>
+    // You can use this function for other features like search, etc.
+   function performSearch() {
+    const query = document.getElementById("search-input").value.toLowerCase();
+    const packages = document.getElementsByClassName("package-box");
+    let found = false; // Flag to track if any package matches the query
+
+    // Hide the "No results" message initially
+    const noResultsMessage = document.getElementById("no-results-message");
+    noResultsMessage.style.display = "none";
+
+    for (let i = 0; i < packages.length; i++) {
+        const packageBox = packages[i];
+        const title = packageBox.querySelector("h3").textContent.toLowerCase();
+
+        if (title.includes(query)) {
+            packageBox.style.display = "block"; // Show matching package
+            found = true; // Set the flag to true if a match is found
+        } else {
+            packageBox.style.display = "none"; // Hide non-matching package
+        }
+    }
+
+    // Show "No results found" if nothing matches
+    if (!found) {
+        noResultsMessage.style.display = "block"; // Display no results message if no matches
+    }
+}
+
+</script>
+
+
+<script>
+  // You can use this function for other features like search, etc.
+   function performSearchs() {
+    const query = document.getElementById("search-inputs").value.toLowerCase();
+    const packages = document.getElementsByClassName("package-box");
+    let found = false; // Flag to track if any package matches the query
+
+    // Hide the "No results" message initially
+    const noResultsMessage = document.getElementById("no-results-message");
+    noResultsMessage.style.display = "none";
+
+    for (let i = 0; i < packages.length; i++) {
+        const packageBox = packages[i];
+        const title = packageBox.querySelector("h3").textContent.toLowerCase();
+
+        if (title.includes(query)) {
+            packageBox.style.display = "block"; // Show matching package
+            found = true; // Set the flag to true if a match is found
+        } else {
+            packageBox.style.display = "none"; // Hide non-matching package
+        }
+    }
+
+    // Show "No results found" if nothing matches
+    if (!found) {
+        noResultsMessage.style.display = "block"; // Display no results message if no matches
+    }
+}
+
+</script>
+
+
+<script>
+    // Function to handle keyboard navigation across the entire page
+    document.addEventListener('keydown', function(event) {
+        const focusableElements = [
+            document.getElementById('homeBtn'),
+document.getElementById('aboutusBtn'),
+document.getElementById('contactBtn'),
+document.getElementById('feedbackBtn'),
+document.getElementById('invertBtn'),
+document.getElementById('lanBtn'),
+document.getElementById('inputs'),
+document.getElementById('formBtn'),
+            document.getElementById('bookNowBtn'),
+document.getElementById('destinationsBtn'),
+            document.getElementById('graphBtn'),
+document.getElementById('input'),
+document.getElementById('f1Btn'),
+document.getElementById('f2Btn'),
+document.getElementById('f3Btn'),
+document.getElementById('f4Btn'),
+document.getElementById('f5Btn'),
+document.getElementById('f6Btn'),
+document.getElementById('f7Btn'),
+document.getElementById('f8Btn'),
+document.getElementById('f9Btn'),
+document.getElementById('f10Btn'),
+document.getElementById('f11Btn'),
+document.getElementById('f12Btn'),
+document.getElementById('chatBtn'),
+            document.getElementById('inputName'),
+            document.getElementById('inputEmail'),
+            document.getElementById('submitBtn'),
+            ...document.querySelectorAll('button, input,inputs, textarea, a, [tabindex]:not([tabindex="-1"])')
+        ];
+
+        // Get the index of the currently focused element
+        let currentIndex = focusableElements.findIndex(el => el === document.activeElement);
+
+        if (event.key === 'ArrowDown' || event.key === 'Tab') {
+            // Move focus down
+            currentIndex = (currentIndex + 1) % focusableElements.length;
+        } else if (event.key === 'ArrowUp') {
+            // Move focus up
+            currentIndex = (currentIndex - 1 + focusableElements.length) % focusableElements.length;
+        } else if (event.key === 'Enter') {
+            // Simulate click on the focused element
+            focusableElements[currentIndex].click();
+            return; // Skip further navigation after Enter
+        }
+
+        // Set focus on the new element
+        focusableElements[currentIndex].focus();
+    });
+
+    // Set initial focus on the home button
+    document.getElementById('homeBtn')?.focus();
+</script>
+
+
+<script>
+            const translations = {
+    en: {
+            home: "Home",
+            aboutUs: "About Us",
+            contactUs: "Contact Us",
+            feedback: "Feedback",
+            fillForm: "Fill Form",
+            bookNow: "Book Now",
+            exploreDestinations: "Explore Destinations",
+           statistics: "Tourism Analytics",
+            searchPlaceholder: "Search your package",
+	    searchPlaceholders: "Search your package",
+package: "Package",
+            package1: "Package 1",
+package2: "Package 2",
+package3: "Package 3",
+package4: "Package 4",
+package5: "Package 5",
+package6: "Package 6",
+package7: "Package 7",
+package8: "Package 8",
+package9: "Package 9",
+package10: "Package 10",
+package11: "Package 11",
+package12: "Package 12",
+            countries: "Countries ",
+            duration: "Duration ",
+            hotels: "Hotels ",
+            price: "Price",
+            bookNowButton: "Book Now",
+footerText: " 2024 Travel Agency. All rights reserved.",
+ pakistan: "Pakistan",
+        china: "China",
+        india: "India",
+        america: "America",
+        london: "London",
+        paris: "Paris",
+        canada: "Canada",
+        switzerland: "Switzerland",
+        pcHotel: "PC Hotel, Murree",
+        peninsulaBeijing: "The Peninsula Beijing",
+        tajMahalPalace: "Taj Mahal Palace, Mumbai",
+        sevenDays: "7 Days",
+fiveDays: "5 Days",
+elevenDays: "11 Days",
+countries: "Countries ",
+
+noResultsMessage: "No Result Found.",
+
+        duration: "Duration ",
+        famousPlaces: "Famous Places",
+        knownFor: "Known For",
+        price: "Price ",
+        errorMessage: "Package not found",
+        switzerland: "Switzerland",
+        france: "France",
+        italy: "Italy",
+        barotas: "Barotas",
+        earlyPastoral: "Early Pastoral",
+        paris: "Paris",
+        hotelEternally: "Hotel Eternally",
+        tenDays: "10 Days",
+        twoThousand: "$2,000",
+        spain: "Spain",
+        greece: "Greece",
+        eightDays: "8 Days",
+        venice: "Venice",
+        barcelona: "Barcelona",
+        santorini: "Santorini",
+        oneThousandEightHundred: "$1,800",
+        japan: "Japan",
+        southKorea: "South Korea",
+        china: "China",
+        sevenDays: "7 Days",
+        tokyo: "Tokyo",
+        seoul: "Seoul",
+        oneThousandSevenHundred: "$1,700",
+        australia: "Australia",
+        newZealand: "New Zealand",
+        fiji: "Fiji",
+        nineDays: "9 Days",
+        shangriLa: "Shangri-La",
+        hilton: "Hilton",
+        likulikulLaguna: "Likulikul Laguna Resort",
+        twoThousandTwoHundred: "$2,200",
+        egypt: "Egypt",
+        morocco: "Morocco",
+        tunisia: "Tunisia",
+        sixDays: "6 Days",
+        fourSeasons: "Four Seasons Hotel",
+        royalMansour: "Royal Mansour",
+        laBoveda: "La Boveda",
+        oneThousandFourHundred: "$1,400",
+        usa: "USA",
+        canada: "Canada",
+        mexico: "Mexico",
+        twelveDays: "12 Days",
+        desertCollege: "Desert College",
+        furmanBanffSpring: "Furman Banff Spring",
+        rosewoodMayakoba: "Rosewood Mayakoba",
+        threeThousand: "$3,000",
+        turkey: "Turkey",
+        cyprus: "Cyprus",
+        sigrimPalace: "Sigrim Palace",
+        canberra: "Canberra",
+        iceland: "Iceland",
+        thailand: "Thailand",
+        madridOriental: "Madrid Oriental",
+        franceBelgiumNetherlands: "France, Belgium, Netherlands",
+        tenDays: "10 Days",
+        maldives: "Maldives",
+        sriLanka: "Sri Lanka",
+        sonevaFushi: "Soneva Fushi",
+        russiaUkraineBelarus: "Russia, Ukraine, Belarus",
+        metropol: "Hotel Metropol",
+newYearDiscount: "New Year Discount.... 10% off on ALL TRIPS From 20th December 2024 to 20th January 2025.... Avail amazing offers now....Book your dream trip...Start NEW YEAR with new ADVENTURE",
+
+ hotelDanieliVenice: "Hotel Danieli, Venice",
+  hotelArtsBarcelona: "Hotel Arts, Barcelona",
+  canavesOiaSantorini: "Canaves Oia, Santorini",
+  parkHyattTokyo: "Park Hyatt Tokyo",
+  shillaSeoul: "The Shilla Seoul",
+  peninsulaBeijing: "The Peninsula Beijing",
+  shangriLaSydney: "Shangri-La, Sydney",
+  hiltonAuckland: "Hilton Auckland",
+  likulikuLagoonResort: "Likuliku Lagoon Resort",
+  sheratonAddis: "Sheraton Addis",
+  giraffeManor: "Giraffe Manor",
+  ngorongoroCraterLodge: "Ngorongoro Crater Lodge",
+  atlantisThePalm: "Atlantis, The Palm",
+  alBustanPalace: "Al Bustan Palace",
+  bananaIslandResortDoha: "Banana Island Resort Doha",
+  copacabanaPalace: "Copacabana Palace",
+  alvearPalaceHotel: "Alvear Palace Hotel",
+  singularPatagonia: "The Singular Patagonia",
+  theSiamHotel: "The Siam Hotel",
+  rafflesHotelLeRoyal: "Raffles Hotel Le Royal",
+  intercontinentalHanoiWestlake: "InterContinental Hanoi Westlake",
+  theNileRitzCarlton: "The Nile Ritz-Carlton",
+  laMamounia: "La Mamounia",
+  theResidenceTunis: "The Residence Tunis",
+badruttsPalace: "Badrutt's Palace",
+  leBristolParis: "Le Bristol Paris",
+  theShillaSeoul: "The Shilla Seoul",
+  thePeninsulaBeijing: "The Peninsula Beijing",
+  ethiopia: "Ethiopia",
+  kenya: "Kenya",
+  tanzania: "Tanzania",
+  uae: "UAE",
+  oman: "Oman",
+  qatar: "Qatar",
+  atlantisThePalm: "Atlantis, The Palm",
+  brazil: "Brazil",
+  argentina: "Argentina",
+  chile: "Chile",
+  malaysia: "Malaysia",
+  theDataiLangkawi: "The Datai Langkawi",
+  singapore: "Singapore",
+  marinaBaySands: "Marina Bay Sands",
+  anantaraSiamBangkokResort: "Anantara Siam Bangkok Resort",
+  cambodia: "Cambodia",
+  vietnam: "Vietnam",
+  theSiamHotel: "The Siam Hotel",
+  seychelles: "Seychelles",
+  amangalla: "Amangalla",
+  northIsland: "North Island",
+  theNileRitzCarlton: "The Nile Ritz-Carlton",
+  theResidenceTunis: "The Residence Tunis",
+ invertColors: "Invert Colors",
+        fifteenHundred: "$1500"
+        },
+tr: {
+    home: "Ana Sayfa",
+    aboutUs: "Hakkımızda",
+    contactUs: "İletişim",
+    feedback: "Geri Bildirim",
+    fillForm: "Formu Doldur",
+    bookNow: "Şimdi Rezervasyon Yap",
+    exploreDestinations: "Destinasyonları Keşfet",
+    statistics: "Turizm Analitiği",
+    searchPlaceholder: "Paketinizi arayın",
+    searchPlaceholders: "Paketinizi arayın",
+    package: "Paket",
+    package1: "Paket 1",
+    package2: "Paket 2",
+    package3: "Paket 3",
+    package4: "Paket 4",
+    package5: "Paket 5",
+    package6: "Paket 6",
+    package7: "Paket 7",
+    package8: "Paket 8",
+    package9: "Paket 9",
+    package10: "Paket 10",
+    package11: "Paket 11",
+    package12: "Paket 12",
+    countries: "Ülkeler",
+    duration: "Süre",
+    hotels: "Oteller",
+    price: "Fiyat",
+    bookNowButton: "Şimdi Rezervasyon Yap",
+    footerText: "2024 Seyahat Ajansı. Tüm hakları saklıdır.",
+    pakistan: "Pakistan",
+    china: "Çin",
+    india: "Hindistan",
+    america: "Amerika",
+    london: "Londra",
+    paris: "Paris",
+    canada: "Kanada",
+    switzerland: "İsviçre",
+    pcHotel: "PC Hotel, Murree",
+    peninsulaBeijing: "The Peninsula Pekin",
+    tajMahalPalace: "Taj Mahal Palace, Mumbai",
+    sevenDays: "7 Gün",
+    fiveDays: "5 Gün",
+    elevenDays: "11 Gün",
+    countries: "Ülkeler",
+    noResultsMessage: "Sonuç Bulunamadı.",
+    duration: "Süre",
+    famousPlaces: "Ünlü Yerler",
+    knownFor: "Ne ile ünlü",
+    price: "Fiyat",
+    errorMessage: "Paket bulunamadı",
+    france: "Fransa",
+    italy: "İtalya",
+    barotas: "Barotas",
+    earlyPastoral: "Erken Pastoral",
+    paris: "Paris",
+    hotelEternally: "Hotel Eternally",
+    tenDays: "10 Gün",
+    twoThousand: "$2,000",
+    spain: "İspanya",
+    greece: "Yunanistan",
+    eightDays: "8 Gün",
+    venice: "Venedik",
+    barcelona: "Barselona",
+    santorini: "Santorini",
+    oneThousandEightHundred: "$1,800",
+    japan: "Japonya",
+    southKorea: "Güney Kore",
+    tokyo: "Tokyo",
+    seoul: "Seul",
+    oneThousandSevenHundred: "$1,700",
+    australia: "Avustralya",
+    newZealand: "Yeni Zelanda",
+    fiji: "Fiji",
+    nineDays: "9 Gün",
+    shangriLa: "Shangri-La",
+    hilton: "Hilton",
+    likulikulLaguna: "Likulikul Laguna Resort",
+    twoThousandTwoHundred: "$2,200",
+    egypt: "Mısır",
+    morocco: "Fas",
+    tunisia: "Tunus",
+    sixDays: "6 Gün",
+    fourSeasons: "Four Seasons Hotel",
+    royalMansour: "Royal Mansour",
+    laBoveda: "La Boveda",
+    oneThousandFourHundred: "$1,400",
+    usa: "ABD",
+    mexico: "Meksika",
+    twelveDays: "12 Gün",
+    desertCollege: "Desert College",
+    furmanBanffSpring: "Furman Banff Spring",
+    rosewoodMayakoba: "Rosewood Mayakoba",
+    threeThousand: "$3,000",
+    turkey: "Türkiye",
+    cyprus: "Kıbrıs",
+    sigrimPalace: "Sigrim Palace",
+    canberra: "Canberra",
+    iceland: "İzlanda",
+    thailand: "Tayland",
+    madridOriental: "Madrid Oriental",
+    franceBelgiumNetherlands: "Fransa, Belçika, Hollanda",
+    maldives: "Maldivler",
+    sriLanka: "Sri Lanka",
+    sonevaFushi: "Soneva Fushi",
+    russiaUkraineBelarus: "Rusya, Ukrayna, Belarus",
+    metropol: "Hotel Metropol",
+    newYearDiscount: "Yeni Yıl İndirimi.... 20 Aralık 2024 - 20 Ocak 2025 tarihleri arasında TÜM SEYAHATLERDE %10 İNDİRİM.... Şimdi harika fırsatlar sunuluyor.... Hayalinizdeki seyahati rezerve edin... YENİ YILA yeni BİR MACERA ile başlayın.",
+    hotelDanieliVenice: "Hotel Danieli, Venedik",
+    hotelArtsBarcelona: "Hotel Arts, Barselona",
+    canavesOiaSantorini: "Canaves Oia, Santorini",
+    parkHyattTokyo: "Park Hyatt Tokyo",
+    shillaSeoul: "The Shilla Seul",
+    peninsulaBeijing: "The Peninsula Pekin",
+    shangriLaSydney: "Shangri-La, Sidney",
+    hiltonAuckland: "Hilton Auckland",
+    likulikuLagoonResort: "Likuliku Lagoon Resort",
+    sheratonAddis: "Sheraton Addis",
+    giraffeManor: "Giraffe Manor",
+    ngorongoroCraterLodge: "Ngorongoro Crater Lodge",
+    atlantisThePalm: "Atlantis, The Palm",
+    alBustanPalace: "Al Bustan Palace",
+    bananaIslandResortDoha: "Banana Island Resort Doha",
+    copacabanaPalace: "Copacabana Palace",
+    alvearPalaceHotel: "Alvear Palace Hotel",
+    singularPatagonia: "The Singular Patagonia",
+    theSiamHotel: "The Siam Hotel",
+    rafflesHotelLeRoyal: "Raffles Hotel Le Royal",
+    intercontinentalHanoiWestlake: "InterContinental Hanoi Westlake",
+    theNileRitzCarlton: "The Nile Ritz-Carlton",
+    laMamounia: "La Mamounia",
+    theResidenceTunis: "The Residence Tunis",
+    badruttsPalace: "Badrutt's Palace",
+    leBristolParis: "Le Bristol Paris",
+    theShillaSeoul: "The Shilla Seul",
+    thePeninsulaBeijing: "The Peninsula Pekin",
+    ethiopia: "Etyopya",
+    kenya: "Kenya",
+    tanzania: "Tanzanya",
+    uae: "BAE",
+    oman: "Umman",
+    qatar: "Katar",
+    atlantisThePalm: "Atlantis, The Palm",
+    brazil: "Brezilya",
+    argentina: "Arjantin",
+    chile: "Şili",
+    malaysia: "Malezya",
+    theDataiLangkawi: "The Datai Langkawi",
+    singapore: "Singapur",
+    marinaBaySands: "Marina Bay Sands",
+    anantaraSiamBangkokResort: "Anantara Siam Bangkok Resort",
+    cambodia: "Kamboçya",
+    vietnam: "Vietnam",
+    seychelles: "Seyşeller",
+    amangalla: "Amangalla",
+    northIsland: "Kuzey Adası",
+    fifteenHundred: "$1500",
+invertColors: "Renkleri Tersine Çevir"
+},
+de: {
+invertColors: "Farben umkehren",
+    home: "Startseite",
+    aboutUs: "Über uns",
+    contactUs: "Kontaktieren Sie uns",
+    feedback: "Feedback",
+    fillForm: "Formular ausfüllen",
+    bookNow: "Jetzt buchen",
+    exploreDestinations: "Reiseziele entdecken",
+    statistics:"Tourismusanalytik",
+    searchPlaceholder: "Suchen Sie Ihr Paket",
+    searchPlaceholders: "Suchen Sie Ihr Paket",
+    package: "Paket",
+    package1: "Paket 1",
+    package2: "Paket 2",
+    package3: "Paket 3",
+    package4: "Paket 4",
+    package5: "Paket 5",
+    package6: "Paket 6",
+    package7: "Paket 7",
+    package8: "Paket 8",
+    package9: "Paket 9",
+    package10: "Paket 10",
+    package11: "Paket 11",
+    package12: "Paket 12",
+    countries: "Länder",
+    duration: "Dauer",
+    hotels: "Hotels",
+    price: "Preis",
+    bookNowButton: "Jetzt buchen",
+    footerText: "2024 Reiseagentur. Alle Rechte vorbehalten.",
+    pakistan: "Pakistan",
+    china: "China",
+    india: "Indien",
+    america: "Amerika",
+    london: "London",
+    paris: "Paris",
+    canada: "Kanada",
+    switzerland: "Schweiz",
+    pcHotel: "PC Hotel, Murree",
+    peninsulaBeijing: "The Peninsula Beijing",
+    tajMahalPalace: "Taj Mahal Palace, Mumbai",
+    sevenDays: "7 Tage",
+    fiveDays: "5 Tage",
+    elevenDays: "11 Tage",
+    countries: "Länder",
+    noResultsMessage: "Kein Ergebnis gefunden.",
+    duration: "Dauer",
+    famousPlaces: "Berühmte Orte",
+    knownFor: "Bekannt für",
+    price: "Preis",
+    errorMessage: "Paket nicht gefunden",
+    france: "Frankreich",
+    italy: "Italien",
+    barotas: "Barotas",
+    earlyPastoral: "Frühpastoral",
+    hotelEternally: "Hotel Eternally",
+    tenDays: "10 Tage",
+    twoThousand: "$2,000",
+    spain: "Spanien",
+    greece: "Griechenland",
+    eightDays: "8 Tage",
+    venice: "Venedig",
+    barcelona: "Barcelona",
+    santorini: "Santorini",
+    oneThousandEightHundred: "$1,800",
+    japan: "Japan",
+    southKorea: "Südkorea",
+    tokyo: "Tokio",
+    seoul: "Seoul",
+    oneThousandSevenHundred: "$1,700",
+    australia: "Australien",
+    newZealand: "Neuseeland",
+    fiji: "Fidschi",
+    nineDays: "9 Tage",
+    shangriLa: "Shangri-La",
+    hilton: "Hilton",
+    likulikulLaguna: "Likulikul Laguna Resort",
+    twoThousandTwoHundred: "$2,200",
+    egypt: "Ägypten",
+    morocco: "Marokko",
+    tunisia: "Tunesien",
+    sixDays: "6 Tage",
+    fourSeasons: "Four Seasons Hotel",
+    royalMansour: "Royal Mansour",
+    laBoveda: "La Boveda",
+    oneThousandFourHundred: "$1,400",
+    usa: "USA",
+    mexico: "Mexiko",
+    twelveDays: "12 Tage",
+    desertCollege: "Desert College",
+    furmanBanffSpring: "Furman Banff Spring",
+    rosewoodMayakoba: "Rosewood Mayakoba",
+    threeThousand: "$3,000",
+    turkey: "Türkei",
+    cyprus: "Zypern",
+    sigrimPalace: "Sigrim Palace",
+    canberra: "Canberra",
+    iceland: "Island",
+    thailand: "Thailand",
+    madridOriental: "Madrid Oriental",
+    franceBelgiumNetherlands: "Frankreich, Belgien, Niederlande",
+    maldives: "Maldiven",
+    sriLanka: "Sri Lanka",
+    sonevaFushi: "Soneva Fushi",
+    russiaUkraineBelarus: "Russland, Ukraine, Weißrussland",
+    metropol: "Hotel Metropol",
+    newYearDiscount: "Neujahrsrabatt.... 10% Rabatt auf ALLE REISEN vom 20. Dezember 2024 bis 20. Januar 2025.... Holen Sie sich jetzt unglaubliche Angebote....Buchen Sie Ihre Traumreise...Starten Sie das NEUE JAHR mit einem neuen ABENTEUER",
+    hotelDanieliVenice: "Hotel Danieli, Venedig",
+    hotelArtsBarcelona: "Hotel Arts, Barcelona",
+    canavesOiaSantorini: "Canaves Oia, Santorini",
+    parkHyattTokyo: "Park Hyatt Tokio",
+    shillaSeoul: "The Shilla Seoul",
+    peninsulaBeijing: "The Peninsula Beijing",
+    shangriLaSydney: "Shangri-La, Sydney",
+    hiltonAuckland: "Hilton Auckland",
+    likulikuLagoonResort: "Likuliku Lagoon Resort",
+    sheratonAddis: "Sheraton Addis",
+    giraffeManor: "Giraffe Manor",
+    ngorongoroCraterLodge: "Ngorongoro Crater Lodge",
+    atlantisThePalm: "Atlantis, The Palm",
+    alBustanPalace: "Al Bustan Palace",
+    bananaIslandResortDoha: "Banana Island Resort Doha",
+    copacabanaPalace: "Copacabana Palace",
+    alvearPalaceHotel: "Alvear Palace Hotel",
+    singularPatagonia: "The Singular Patagonia",
+    theSiamHotel: "The Siam Hotel",
+    rafflesHotelLeRoyal: "Raffles Hotel Le Royal",
+    intercontinentalHanoiWestlake: "InterContinental Hanoi Westlake",
+    theNileRitzCarlton: "The Nile Ritz-Carlton",
+    laMamounia: "La Mamounia",
+    theResidenceTunis: "The Residence Tunis",
+    badruttsPalace: "Badrutt's Palace",
+    leBristolParis: "Le Bristol Paris",
+    theShillaSeoul: "The Shilla Seoul",
+    thePeninsulaBeijing: "The Peninsula Beijing",
+    ethiopia: "Äthiopien",
+    kenya: "Kenia",
+    tanzania: "Tansania",
+    uae: "VAE",
+    oman: "Oman",
+    qatar: "Katar",
+    atlantisThePalm: "Atlantis, The Palm",
+    brazil: "Brasilien",
+    argentina: "Argentinien",
+    chile: "Chile",
+    malaysia: "Malaysia",
+    theDataiLangkawi: "The Datai Langkawi",
+    singapore: "Singapur",
+    marinaBaySands: "Marina Bay Sands",
+    anantaraSiamBangkokResort: "Anantara Siam Bangkok Resort",
+    cambodia: "Kambodscha",
+    vietnam: "Vietnam",
+    seychelles: "Seychellen",
+    amangalla: "Amangalla",
+    northIsland: "North Island",
+    fifteenHundred: "$1500"
+},
+
+
+ar: {
+    home: "الرئيسية",
+    aboutUs: "معلومات عنا",
+    contactUs: "اتصل بنا",
+    feedback: "تعليقات",
+    fillForm: "املأ النموذج",
+    bookNow: "احجز الآن",
+    exploreDestinations: "استكشاف الوجهات",
+    statistics: "تحليلات السياحة",
+    searchPlaceholder: "ابحث عن باقتك",
+    searchPlaceholders: "ابحث عن باقتك",
+    package: "باقة",
+    package1: "باقة 1",
+    package2: "باقة 2",
+    package3: "باقة 3",
+    package4: "باقة 4",
+    package5: "باقة 5",
+    package6: "باقة 6",
+    package7: "باقة 7",
+    package8: "باقة 8",
+    package9: "باقة 9",
+    package10: "باقة 10",
+    package11: "باقة 11",
+    package12: "باقة 12",
+    countries: "الدول",
+    duration: "المدة",
+    hotels: "الفنادق",
+    price: "السعر",
+    bookNowButton: "احجز الآن",
+    footerText: "2024 وكالة السفر. جميع الحقوق محفوظة.",
+    pakistan: "باكستان",
+    china: "الصين",
+    india: "الهند",
+    america: "أمريكا",
+    london: "لندن",
+    paris: "باريس",
+    canada: "كندا",
+    switzerland: "سويسرا",
+    pcHotel: "فندق بي سي، مرشد",
+    peninsulaBeijing: "بينينسولا بكين",
+    tajMahalPalace: "قصر تاج محل، مومباي",
+    sevenDays: "7 أيام",
+    fiveDays: "5 أيام",
+    elevenDays: "11 يوم",
+    countries: "الدول",
+    noResultsMessage: "لم يتم العثور على نتائج.",
+    famousPlaces: "أماكن مشهورة",
+    knownFor: "معروف بـ",
+    errorMessage: "الباقة غير موجودة",
+    france: "فرنسا",
+    italy: "إيطاليا",
+    barotas: "باروتاس",
+    earlyPastoral: "الرعوية المبكرة",
+    paris: "باريس",
+    hotelEternally: "فندق إترنالي",
+    tenDays: "10 أيام",
+    twoThousand: "$2,000",
+    spain: "إسبانيا",
+    greece: "اليونان",
+    eightDays: "8 أيام",
+    venice: "البندقية",
+    barcelona: "برشلونة",
+    santorini: "سانتوريني",
+    oneThousandEightHundred: "$1,800",
+    japan: "اليابان",
+    southKorea: "كوريا الجنوبية",
+    sevenDays: "7 أيام",
+    tokyo: "طوكيو",
+    seoul: "سيول",
+    oneThousandSevenHundred: "$1,700",
+    australia: "أستراليا",
+    newZealand: "نيوزيلندا",
+    fiji: "فيجي",
+    nineDays: "9 أيام",
+    shangriLa: "شانغريلا",
+    hilton: "هيلتون",
+    likulikulLaguna: "منتجع ليكوليكي لاغونا",
+    twoThousandTwoHundred: "$2,200",
+    egypt: "مصر",
+    morocco: "المغرب",
+    tunisia: "تونس",
+    sixDays: "6 أيام",
+    fourSeasons: "فندق فور سيزونز",
+    royalMansour: "رويال منصور",
+    laBoveda: "لا بوفييدا",
+    oneThousandFourHundred: "$1,400",
+    usa: "الولايات المتحدة",
+    mexico: "المكسيك",
+    twelveDays: "12 يوم",
+    desertCollege: "كلية الصحراء",
+    rosewoodMayakoba: "روزوود ماياكوبا",
+    threeThousand: "$3,000",
+    turkey: "تركيا",
+    cyprus: "قبرص",
+    sigrimPalace: "قصر سيغريم",
+    canberra: "كانبيرا",
+    iceland: "أيسلندا",
+    thailand: "تايلاند",
+    madridOriental: "مدريد الشرقية",
+    franceBelgiumNetherlands: "فرنسا، بلجيكا، هولندا",
+    maldives: "جزر المالديف",
+    sriLanka: "سريلانكا",
+    sonevaFushi: "سونيوا فوشي",
+    russiaUkraineBelarus: "روسيا، أوكرانيا، بيلاروسيا",
+    newYearDiscount: "خصم رأس السنة.... 10% على جميع الرحلات من 20 ديسمبر 2024 إلى 20 يناير 2025.... استمتع بالعروض الرائعة الآن.... احجز رحلتك الحلم... ابدأ العام الجديد بمغامرة جديدة",
+    hotelDanieliVenice: "فندق دانييلي، البندقية",
+    hotelArtsBarcelona: "فندق آرتس، برشلونة",
+    canavesOiaSantorini: "كانافيس أويا، سانتوريني",
+    parkHyattTokyo: "بارك حياة طوكيو",
+    shillaSeoul: "ذا شيلا سيول",
+    peninsulaBeijing: "بينينسولا بكين",
+    shangriLaSydney: "شانغريلا، سيدني",
+    hiltonAuckland: "هيلتون أوكلاند",
+    likulikuLagoonResort: "منتجع ليكوليكي لاجون",
+    sheratonAddis: "شيراتون أديس",
+    giraffeManor: "مانور الزرافة",
+    ngorongoroCraterLodge: "منتجع فوهة بركان نجورونغورو",
+    atlantisThePalm: "أتلانتس، النخلة",
+    alBustanPalace: "قصر البستان",
+    bananaIslandResortDoha: "منتجع جزيرة الموز، الدوحة",
+    copacabanaPalace: "قصر كوباكابانا",
+    alvearPalaceHotel: "فندق قصر ألفيار",
+    singularPatagonia: "سينغولار باتاغونيا",
+    theSiamHotel: "فندق سيام",
+    rafflesHotelLeRoyal: "فندق رافلز لو رويال",
+    intercontinentalHanoiWestlake: "إنتركونتيننتال هانوي ويستليك",
+    theNileRitzCarlton: "ريتز كارلتون النيل",
+    laMamounia: "لا مامونيا",
+    theResidenceTunis: "ريزيدنس تونس",
+    badruttsPalace: "قصر بادروت",
+    leBristolParis: "لو بريستول باريس",
+    theShillaSeoul: "ذا شيلا سيول",
+    thePeninsulaBeijing: "بينينسولا بكين",
+    ethiopia: "إثيوبيا",
+    kenya: "كينيا",
+    tanzania: "تنزانيا",
+    uae: "الإمارات",
+    oman: "عمان",
+    qatar: "قطر",
+    atlantisThePalm: "أتلانتس، النخلة",
+    brazil: "البرازيل",
+    argentina: "الأرجنتين",
+    chile: "تشيلي",
+    malaysia: "ماليزيا",
+    singapore: "سنغافورة",
+    marinaBaySands: "مارينا باي ساندز",
+    anantaraSiamBangkokResort: "منتجع أنانتارا سيام بانكوك",
+    cambodia: "كامبوديا",
+    vietnam: "فيتنام",
+    seychelles: "سيشل",
+    amangalla: "أمانغالا",
+    northIsland: "جزيرة الشمال",
+    theNileRitzCarlton: "ريتز كارلتون النيل",
+    fifteenHundred: "$1500",
+invertColors: "عكس الألوان"
+},
+
+
+zh: {
+ invertColors: "反转颜色",
+    home: "主页",
+    aboutUs: "关于我们",
+    contactUs: "联系我们",
+    feedback: "反馈",
+    fillForm: "填写表格",
+    bookNow: "立即预订",
+searchPlaceholders: "搜索您的套餐",
+    exploreDestinations: "探索目的地",
+    statistics:  "旅游分析",
+    searchPlaceholder: "搜索您的套餐",
+    package: "套餐",
+    package1: "套餐 1",
+    package2: "套餐 2",
+    package3: "套餐 3",
+    package4: "套餐 4",
+    package5: "套餐 5",
+    package6: "套餐 6",
+    package7: "套餐 7",
+    package8: "套餐 8",
+    package9: "套餐 9",
+    package10: "套餐 10",
+    package11: "套餐 11",
+    package12: "套餐 12",
+    countries: "国家",
+    duration: "时长",
+    hotels: "酒店",
+    price: "价格",
+    bookNowButton: "立即预订",
+    footerText: "2024 旅行社。版权所有。",
+    pakistan: "巴基斯坦",
+    china: "中国",
+    india: "印度",
+    america: "美国",
+    london: "伦敦",
+    paris: "巴黎",
+    canada: "加拿大",
+    switzerland: "瑞士",
+    pcHotel: "PC酒店，穆尔里",
+    peninsulaBeijing: "北京半岛酒店",
+    tajMahalPalace: "孟买泰姬陵宫殿",
+    sevenDays: "7天",
+    fiveDays: "5天",
+eightDays: "8天",
+tenDays: "10天",
+nineDays: "9天",
+
+    elevenDays: "11天",
+    noResultsMessage: "未找到结果。",
+    famousPlaces: "著名景点",
+    knownFor: "以...闻名",
+    errorMessage: "未找到套餐",
+    france: "法国",
+    italy: "意大利",
+    spain: "西班牙",
+    greece: "希腊",
+    japan: "日本",
+    southKorea: "韩国",
+    australia: "澳大利亚",
+    egypt: "埃及",
+    morocco: "摩洛哥",
+    tunisia: "突尼斯",
+    usa: "美国",
+    mexico: "墨西哥",
+    turkey: "土耳其",
+    cyprus: "塞浦路斯",
+    iceland: "冰岛",
+    thailand: "泰国",
+    maldives: "马尔代夫",
+    sriLanka: "斯里兰卡",
+    russiaUkraineBelarus: "俄罗斯，乌克兰，白俄罗斯",
+    hotelDanieliVenice: "威尼斯丹尼利酒店",
+    hotelArtsBarcelona: "巴塞罗那艺术酒店",
+    canavesOiaSantorini: "圣托里尼Canaves Oia",
+    parkHyattTokyo: "东京柏悦酒店",
+    shillaSeoul: "首尔世路酒店",
+    peninsulaBeijing: "北京半岛酒店",
+    shangriLaSydney: "悉尼香格里拉酒店",
+    hiltonAuckland: "奥克兰希尔顿酒店",
+    likulikuLagoonResort: "Likuliku泻湖度假村",
+    newYearDiscount: "新年折扣... 2024年12月20日至2025年1月20日所有行程10%优惠... 快来享受超值优惠... 预定您的梦想之旅... 开启全新冒险"
+},
+ru: {
+searchPlaceholders: "Ищите ваш пакет", 
+    home: "Главная",
+    aboutUs: "О нас",
+    contactUs: "Контакты",
+    feedback: "Обратная связь",
+    fillForm: "Заполнить форму",
+    bookNow: "Забронировать сейчас",
+    exploreDestinations: "Исследовать направления",
+    statistics: "Туристическая аналитика",
+    searchPlaceholder: "Поиск вашего пакета",
+    package: "Пакет",
+    package1: "Пакет 1",
+    package2: "Пакет 2",
+    package3: "Пакет 3",
+    package4: "Пакет 4",
+    package5: "Пакет 5",
+    package6: "Пакет 6",
+    package7: "Пакет 7",
+    package8: "Пакет 8",
+    package9: "Пакет 9",
+    package10: "Пакет 10",
+    package11: "Пакет 11",
+    package12: "Пакет 12",
+    countries: "Страны",
+    duration: "Продолжительность",
+    hotels: "Отели",
+    price: "Цена",
+    bookNowButton: "Забронировать сейчас",
+    footerText: "2024 Туристическая компания. Все права защищены.",
+    pakistan: "Пакистан",
+    china: "Китай",
+    india: "Индия",
+    america: "США",
+    london: "Лондон",
+    paris: "Париж",
+    canada: "Канада",
+    switzerland: "Швейцария",
+    pcHotel: "PC отель, Мурри",
+    peninsulaBeijing: "Полуостров Пекин",
+    tajMahalPalace: "Тадж Махал Палас, Мумбаи",
+    sevenDays: "7 дней",
+    fiveDays: "5 дней",
+    elevenDays: "11 дней",
+    noResultsMessage: "Результаты не найдены.",
+    famousPlaces: "Знаменитые места",
+    knownFor: "Известен за",
+    errorMessage: "Пакет не найден",
+    france: "Франция",
+    italy: "Италия",
+    spain: "Испания",
+    greece: "Греция",
+    japan: "Япония",
+    southKorea: "Южная Корея",
+    australia: "Австралия",
+    egypt: "Египет",
+    morocco: "Марокко",
+    tunisia: "Тунис",
+    usa: "США",
+    mexico: "Мексика",
+    turkey: "Турция",
+    cyprus: "Кипр",
+    iceland: "Исландия",
+    thailand: "Таиланд",
+    maldives: "Мальдивы",
+    sriLanka: "Шри-Ланка",
+    russiaUkraineBelarus: "Россия, Украина, Беларусь",
+    hotelDanieliVenice: "Отель Даниели, Венеция",
+    hotelArtsBarcelona: "Отель Артс, Барселона",
+    canavesOiaSantorini: "Canaves Oia, Санторини",
+    parkHyattTokyo: "Park Hyatt Tokyo",
+    shillaSeoul: "The Shilla Seoul",
+    peninsulaBeijing: "Полуостров Пекин",
+    shangriLaSydney: "Шангри-Ла, Сидней",
+    hiltonAuckland: "Хилтон, Окленд",
+    likulikuLagoonResort: "Likuliku Лагунный Курорт",
+    newYearDiscount: "Новогодняя скидка... 10% скидка на ВСЕ ПОЕЗДКИ с 20 декабря 2024 года по 20 января 2025 года... Получите потрясающие предложения прямо сейчас... Забронируйте ваше путешествие мечты... Начните новый год с новых приключений",
+  invertColors: "Инвертировать цвета"
+},
+
+
+        ur: {
+ invertColors: "رنگ تبدیل کریں",
+            home: "صفحہ اول",
+            aboutUs: "ہمارے بارے میں",
+            contactUs: "ہم سے رابطہ کریں",
+            feedback: "تبصرے",
+            fillForm: "فارم بھریں",
+            bookNow: "ابھی بک کریں",
+            exploreDestinations: "مقامات تلاش کریں",
+            statistics:"سیاحت کی تجزیاتی",
+            searchPlaceholder: "اپنے پیکیج کی تلاش کریں",
+searchPlaceholders: "اپنے پیکیج کی تلاش کریں",
+package: "پیکیج ",
+            package1: "پیکیج 1",
+package2: "پیکیج 2",
+package3: "پیکیج 3",
+package4: "پیکیج 4",
+package5: "پیکیج 5",
+package6: "پیکیج 6",
+package7: "پیکیج 7",
+package8: "پیکیج 8",
+package9: "پیکیج 9",
+package10: "پیکیج 10",
+package11: "پیکیج 11",
+package12: "پیکیج 12",
+
+ noResultsMessage: "کوئی نتیجہ نہیں ملا۔",
+
+            countries: " ممالک ",
+            duration: " مدت",
+            hotels: " ہوٹل",
+            price: " قیمت",
+            bookNowButton: "ابھی بک کریں",
+ footerText: " 2024 ٹریول ایجنسی۔ جملہ حقوق محفوظ ہیں۔",
+pakistan: "پاکستان",
+        china: "چین",
+        india: "بھارت",
+        america: "امریکہ",
+        london: "لندن",
+        paris: "پیرس",
+        canada: "کینیڈا",
+        switzerland: "سوئٹزرلینڈ",
+        pcHotel: "پی سی ہوٹل، مری",
+        peninsulaBeijing: "دی پیننسولا بیجنگ",
+        tajMahalPalace: "تاج محل پیلس، ممبئی",
+        sevenDays: "7 دن",
+fiveDays: "5 دن",
+elevenDays: "11 دن",
+        famousPlaces: "مشہور مقامات",
+        knownFor: "مشہور",
+       
+        errorMessage: "پیکیج دستیاب نہیں",
+        switzerland: "سوئٹزرلینڈ",
+        france: "فرانس",
+        italy: "اٹلی",
+        barotas: "باروتاس",
+        earlyPastoral: "ابتدائی چراگاہ",
+        paris: "پیرس",
+        hotelEternally: "ہوٹل ابدی",
+        tenDays: "10 دن",
+        twoThousand: "$2,000",
+        spain: "اسپین",
+        greece: "یونان",
+        eightDays: "8 دن",
+        venice: "وینس",
+        barcelona: "بارسلونا",
+        santorini: "سینٹورینی",
+        oneThousandEightHundred: "$1,800",
+        japan: "جاپان",
+        southKorea: "جنوبی کوریا",
+        china: "چین",
+        sevenDays: "7 دن",
+        tokyo: "ٹوکیو",
+        seoul: "سیول",
+        oneThousandSevenHundred: "$1,700",
+        australia: "آسٹریلیا",
+        newZealand: "نیوزی لینڈ",
+        fiji: "فجی",
+        nineDays: "9 دن",
+        shangriLa: "شانگری لا",
+        hilton: "ہلٹن",
+        likulikulLaguna: "لیکولیکل لگونا ریزورٹ",
+        twoThousandTwoHundred: "$2,200",
+        egypt: "مصر",
+        morocco: "مراکش",
+        tunisia: "تیونس",
+        sixDays: "6 دن",
+        fourSeasons: "فور سیزنز ہوٹل",
+        royalMansour: "رائل منصور",
+        laBoveda: "لا بویدا",
+        oneThousandFourHundred: "$1,400",
+        usa: "امریکہ",
+        canada: "کینیڈا",
+        mexico: "میکسیکو",
+        twelveDays: "12 دن",
+        desertCollege: "ڈیزرٹ کالج",
+        furmanBanffSpring: "فرمین بینف اسپرنگ",
+        rosewoodMayakoba: "روز ووڈ مایاکوبا",
+        threeThousand: "$3,000",
+        turkey: "ترکی",
+        cyprus: "قبرص",
+        sigrimPalace: "سیگرم پیلس",
+        canberra: "کینبرا",
+        iceland: "آئس لینڈ",
+        thailand: "تھائی لینڈ",
+        madridOriental: "میڈرڈ اورینٹل",
+        franceBelgiumNetherlands: "فرانس، بیلجیم، نیدرلینڈز",
+        tenDays: "10 دن",
+        maldives: "مالدیپ",
+        sriLanka: "سری لنکا",
+        sonevaFushi: "سونیوا فوشی",
+        russiaUkraineBelarus: "روس، یوکرین، بیلاروس",
+        metropol: "ہوٹل میٹروپول",
+hotelDanieliVenice: "ہوٹل ڈینیئلی، وینس",
+  hotelArtsBarcelona: "ہوٹل آرٹس، بارسلونا",
+  canavesOiaSantorini: "کینیوس اویا، سانٹورینی",
+  parkHyattTokyo: "پارک حیات ٹوکیو",
+  shillaSeoul: "دی شیلا سیول",
+  peninsulaBeijing: "دی پینینسولا بیجنگ",
+  shangriLaSydney: "شنگری لا، سڈنی",
+  hiltonAuckland: "ہلٹن آکلینڈ",
+  likulikuLagoonResort: "لیکولیکو لاگوں ریزورٹ",
+  sheratonAddis: "شیراٹون ایڈیس",
+  giraffeManor: "جراف مینر",
+  ngorongoroCraterLodge: "نگورونگورو کریٹر لوج",
+newYearDiscount: "نئے سال کی خصوصی رعایت.... تمام سفروں پر 10% کی چھوٹ 20 دسمبر 2024 سے 20 جنوری 2025 تک.... شاندار پیشکشوں سے فائدہ اٹھائیں.... اپنی خوابوں کی چھٹی بک کریں.... نئے سال کا آغاز ایک نئے ایڈونچر کے ساتھ کریں",
+
+  atlantisThePalm: "ایٹلانٹس، دی پام",
+  alBustanPalace: "ال بستاں پیلس",
+  bananaIslandResortDoha: "بنانا آئی لینڈ ریزورٹ دوحہ",
+  copacabanaPalace: "کاپاکابانا پیلس",
+  alvearPalaceHotel: "الویئر پیلس ہوٹل",
+  singularPatagonia: "دی سنگولر پیٹاگونیا",
+  theSiamHotel: "دی سیام ہوٹل",
+  rafflesHotelLeRoyal: "ریفلز ہوٹل لی رائل",
+  intercontinentalHanoiWestlake: "انٹرکانٹینینٹل ہنوئی ویسٹ لیک",
+  theNileRitzCarlton: "دی نائل رٹز کارلٹن",
+  laMamounia: "لا مامونیا",
+  theResidenceTunis: "دی ریزیڈنس تونس",
+badruttsPalace: "بدرٹس پیلس",
+  leBristolParis: "لے برسٹل پیرس",
+  theShillaSeoul: "دی شیلا سیول",
+  thePeninsulaBeijing: "دی پینینسولا بیجنگ",
+  ethiopia: "ایتھوپیا",
+  kenya: "کینیا",
+  tanzania: "تنزانیہ",
+  uae: "متحدہ عرب امارات",
+  oman: "عمان",
+  qatar: "قطر",
+  atlantisThePalm: "ایٹلانٹس، دی پام",
+  brazil: "برازیل",
+  argentina: "ارجنٹینا",
+  chile: "چلی",
+  malaysia: "ملائیشیا",
+  theDataiLangkawi: "دی ڈٹائی لنکاوی",
+  singapore: "سنگاپور",
+  marinaBaySands: "مرینا بے سینڈز",
+  anantaraSiamBangkokResort: "اناتارا سیام بینکاک ریزورٹ",
+  cambodia: "کمبوڈیا",
+  vietnam: "ویتنام",
+  theSiamHotel: "دی سیام ہوٹل",
+  seychelles: "سیشلز",
+  amangalla: "امانگالا",
+  northIsland: "نارتھ آئی لینڈ",
+  theNileRitzCarlton: "دی نائل رٹز کارلٹن",
+  theResidenceTunis: "دی ریزیڈنس تونس",
+        fifteenHundred: "$1500"
+        }
+    };
+function switchLanguage(lang) {
+    // Apply translations to all elements with data-translate attributes
+    const elements = document.querySelectorAll("[data-translate]");
+    elements.forEach((el) => {
+        const key = el.getAttribute("data-translate");
+        el.textContent = translations[lang][key] || el.textContent;
+    });
+
+    // Update placeholders for input fields
+    const searchInput = document.getElementById("search-input");
+    if (searchInput) {
+        searchInput.placeholder = translations[lang]["searchPlaceholder"] || searchInput.placeholder;
+    }
+
+    const searchInputs = document.getElementById("search-inputs");
+    if (searchInputs) {
+        searchInputs.placeholder = translations[lang]["searchPlaceholders"] || searchInputs.placeholder;
+    }
+
+    // Set the direction and language of the document
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ur" ? "rtl" : "ltr";
+
+    // Save the selected language in localStorage
+    localStorage.setItem("language", lang);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Get saved language or default to English
+    const savedLanguage = localStorage.getItem("language") || "en";
+    switchLanguage(savedLanguage);
+
+    // Setup the language selector dropdown
+    const languageSelector = document.getElementById("language");
+    if (languageSelector) {
+        languageSelector.value = savedLanguage; // Set dropdown to saved language
+        languageSelector.addEventListener("change", (e) => {
+            switchLanguage(e.target.value);
+        });s
+    }
+});
+
+
+
+</script>
+
+        <footer>
+    <p data-translate="footerText"></p>
+</footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

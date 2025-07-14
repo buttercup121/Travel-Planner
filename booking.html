@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Page</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #34495e;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+.invert-button:hover {
+ background-color: #34495e;
+            border-radius: 5px;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+}
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+        .dashboard {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            width: 300px;
+            border-radius: 8px;
+            margin-right: 20px;
+            position: fixed; /* Fixed to the left side */
+            top: 40px;
+            left: 0;
+            height: 100%; /* Full height */
+            overflow-y: auto;
+        }
+
+        .dashboard h2 {
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .dashboard button {
+            background-color: #87cefa;
+            color: black;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+
+        .dashboard button:hover {
+            transform: scale(1.1);
+            background-color: #63b8ff;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            margin-left: 320px; /* Push content to the right of the dashboard */
+        }
+
+        h3 {
+            text-align: center; /* Start heading from the top-left */
+            color: white;
+            font-size: 24px;
+            margin: 20px 0;
+            padding: 0 20px;
+        }
+
+        h3 i {
+            font-size: 32px;
+            margin-right: 10px;
+        }
+
+	p {
+    text-align: center;
+	}
+
+
+        .recommendation-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 boxes per row */
+            gap: 20px;
+            justify-items: center;
+            margin-top: 20px;
+        }
+
+        .booking-item {
+            background-color: #34495e;
+            padding: 20px;
+            border-radius: 8px;
+            width: 250px;
+            text-align: center;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            transition: transform 0.3s;
+        }
+
+        .booking-item img {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+        }
+
+        .booking-item h4 {
+            margin: 10px 0;
+        }
+
+        .booking-item p {
+            margin: 5px 5px;
+            font-size: 14px;
+        }
+
+        .booking-item button {
+           background: linear-gradient(45deg, #63b8ff, #87cefa);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.3em;
+            font-weight: bold;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+margin-left:5px;
+width: 100%;
+        }
+
+        .booking-item button:hover {
+            background-color: #63b8ff;
+            transform: scale(1.1);
+        }
+
+        .notification {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+            position: fixed;
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            z-index: 1000;
+        }
+ .filters-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 300px;
+  margin: 20px 0;
+}
+
+/* Styling for each filter group */
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.filter-group input[type="range"] {
+  width: 100%;
+}
+
+.filter-group select {
+  padding: 8px;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.filter-group span {
+  margin-top: 5px;
+  font-size: 14px;
+  color: white;
+}
+
+/* Add some spacing and styling to ensure everything looks neat */
+.filters-container .filter-group {
+  margin-bottom: 20px;
+}
+
+.filter-group select, .filter-group input[type="range"] {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+        footer {
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 1rem;
+            width: 100%;
+            position: relative;
+            margin-top: auto;
+        }
+.top-left-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.top-left-image img {
+    width: 105px; /* Set the width as per your preference */
+    height:  50px;
+}
+
+header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px ;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        header .top-left-image {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        header nav {
+            margin-top: 0px;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 0px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+
+        header nav a:hover {
+            background-color: #34495e;
+            border-radius: 5px;
+        }
+header select{
+background-color: #34495e;
+color: white;
+border: 1px solid #ecf0f1;
+padding: 5px;
+fornt-size:16px;
+}
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f8f8f8;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            padding: 5px 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            padding: 10px;
+            border-radius: 25px;
+            flex: 1;
+            font-size: 1rem;
+        }
+.search-bar inputs {
+            border: none;
+            outline: none;
+            padding: 10px;
+            border-radius: 25px;
+            flex: 1;
+            font-size: 1rem;
+        }
+
+        .search-bar button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0 10px;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .search-bar button i {
+            font-size: 1.2rem;
+        }
+.search-containers {
+            display: flex;
+            justify-content: center;
+            align-items: right;
+            height: auto;
+            margin: 0;
+position: absolute;
+    top: 10px;
+    right: 0;
+
+        }
+
+
+  /* Inverts colors for the entire body */
+.invert-colors {
+    filter: invert(1);
+    background-color: black;
+    color: white;
+}
+
+.invert-button {
+    all: unset; /* Resets all default styles */
+    padding: 10px 15px; /* Matches the nav link padding */
+    font-size: 1.1em; /* Matches the nav link font size */
+    cursor: pointer;
+    color: white; /* Matches the nav link text color */
+    background-color: transparent; /* Ensures no background by default */
+    text-decoration: none; /* Removes any underline */
+    margin: 0 5px; /* Adjust margin for spacing */
+    transition: all 0.3s ease; /* Matches nav link transitions */
+    display: inline-block; /* Ensures consistent layout */
+    border: none; /* Removes button borders */
+    border-radius: 0; /* No default border radius */
+}
+
+
+.invert-button img {
+    width: 24px;
+    height: 24px;
+    filter: invert(100%);
+}
+
+.invert-button:hover img {
+    filter: invert(100%);
+}  
+
+       /* Main Chatbot Button */
+.chatbot-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(45deg, #1e90ff, #00bfff);
+    color: white;
+    font-size: 24px;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.chatbot-button:hover {
+    background-color: #0056b3;
+}
+
+/* Chatbot Container */
+.chat-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 350px;
+    height: 450px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    display: none; /* Hidden by default */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    z-index: 9999;
+}
+
+/* Chat Header */
+.chat-header {
+   background: linear-gradient(45deg, #1e90ff, #00bfff);
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Close Button */
+.close-btn {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #f44336;
+}
+
+/* Chat Box */
+.chat-box {
+    padding: 15px;
+    height: 300px;
+    overflow-y: auto;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    border-bottom: 1px solid #ddd;
+}
+
+/* User and Bot Messages */
+.user-message, .bot-response {
+    margin: 10px 0;
+    padding: 8px;
+    border-radius: 10px;
+    max-width: 80%;
+}
+
+.user-message {
+    background-color: #d1e7ff;
+    color: #333; /* Darker text for readability */
+    align-self: flex-start;
+}
+
+.bot-response {
+    background-color: #f1f1f1;
+    color: #333; /* Darker text for readability */
+    align-self: flex-end;
+}
+
+/* Chat Input Section */
+.chat-input-container {
+    display: flex;
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#userInput {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-right: 10px;
+}
+
+button {
+     background: linear-gradient(45deg, #1e90ff, #00bfff);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Hide the chat window when it's closed */
+.chat-container.hidden {
+    display: none;
+}
+ .walking-person {
+      position: absolute;
+      left: 0;
+      top: 50%; /* Center vertically */
+      transform: translateY(-50%);
+      width: 48px;
+      height: 30px; /* Height for walking person */
+      margin-right: 20px; /* Increase space between person and stars */
+    }
+    .body {
+      fill: white;
+    }
+
+    .leg-left, .leg-right {
+      fill: white;
+      animation: walk-legs 0.8s ease-in-out infinite;
+      transform-origin: top;
+    }
+
+    .leg-right {
+      animation-delay: 0.4s; /* Opposite movement for the other leg */
+    }
+
+    .arm-left, .arm-right {
+      fill:  white;
+      animation: swing-arms 0.8s ease-in-out infinite;
+      transform-origin: top;
+    }
+
+    .arm-right {
+      animation-delay: 0.4s; /* Opposite movement for the other arm */
+    }
+
+    /* Legs Walking Animation */
+    @keyframes walk-legs {
+      0%, 100% {
+        transform: rotate(20deg);
+      }
+      50% {
+        transform: rotate(-20deg);
+      }
+    }
+
+    /* Arms Swinging Animation */
+    @keyframes swing-arms {
+      0%, 100% {
+        transform: rotate(-20deg);
+      }
+      50% {
+        transform: rotate(20deg);
+      }
+    }
+   .stars {
+      margin-left: 70px; /* Adjust this value to set the gap between stars and walking person */
+      display: flex;
+      align-items: center;
+    }
+
+    .stars i {
+      margin-right: 5px; /* Space between stars */
+    }
+
+    </style>
+</head>
+<body>
+<header role="banner">
+    <nav role="navigation">
+        <div class="top-left-image">
+            <img src="C:\Users\WALLED TRADERS\OneDrive\Pictures\Saved Pictures\logo.jpeg" alt="Travel Planner Logo">
+        </div>
+        <a href="homepage.html" id="homeBtn" aria-label="Go to Home" tabindex="0">
+            <i class="fas fa-home"></i> <span data-translate="home">Home</span>
+        </a>
+        <a href="aboutus.html" id="aboutusBtn" aria-label="About Us" tabindex="0">
+            <i class="fas fa-info-circle"></i> <span data-translate="aboutUs">About Us</span>
+        </a>
+        <a href="contact.html" id="contactBtn" aria-label="Contact Us" tabindex="0">
+            <i class="fas fa-phone-alt fa-flip-horizontal"></i> <span data-translate="contactUs">Contact Us</span>
+        </a>
+        <a href="feedback.html" id="feedbackBtn" aria-label="Feedback" tabindex="0">
+            <i class="fas fa-comment-dots"></i> <span data-translate="feedback">Feedback</span>
+        </a>
+  
+ <button id="invertColorsButton" class="invert-button" aria-label="Invert Colors">
+    <i class="fas fa-adjust"></i> <span data-translate="invertColors">Invert Colors</span>
+
+</button>
+        <label for="language" id="lanBtn" class="sr-only">Select Language</label>
+        <select id="language" aria-label="Select Language" tabindex="0">
+            <option value="en">English</option>
+            <option value="ur">اردو</option>
+            <option value="zh">中文</option>
+            <option value="ru">Русский</option>
+            <option value="ar">العربية</option>
+            <option value="tr">Türkçe</option>
+            <option value="de">Deutsch</option>
+        </select>
+    </nav>
+
+    <div class="search-containers">
+        <div class="search-bar">
+            <label for="search-inputs" class="sr-only">Search your package</label>
+            <input type="text" placeholder="Search your package" id="search-inputs" aria-label="Search Packages" tabindex="0"  onkeyup="performSearchs()" />
+            <button onclick="performSearchs()" aria-label="Search">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+
+    <br>
+
+    <marquee role="region" aria-label="Scrolling Animation with Walking Person">
+        <div class="walking-person" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+                <!-- Head -->
+                <circle cx="30" cy="10" r="6" class="body" />
+                <!-- Body -->
+                <rect x="26" y="18" width="6" height="13" class="body" />
+                <!-- Left Leg -->
+                <rect class="leg-left" x="26" y="38" width="4" height="8" />
+                <!-- Right Leg -->
+                <rect class="leg-right" x="30" y="38" width="4" height="8" />
+                <!-- Left Arm -->
+                <rect class="arm-left" x="22" y="23" width="4" height="6" />
+                <!-- Right Arm -->
+                <rect class="arm-right" x="34" y="23" width="4" height="6" />
+            </svg>
+        </div>
+
+        <div class="stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <span data-translate="newYearDiscount">New Year Discount</span>
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+    </marquee>
+</header>
+    <div class="dashboard">
+        <div class="top-left-image">
+            <img src="C:\Users\WALLED TRADERS\OneDrive\Pictures\Saved Pictures\logo2.jpeg" alt="Top Left Image">
+        </div>
+        <h2 data-translate="bookHotelFlightTitle">Book Your Hotel or Flight</h2>
+        <button onclick="showHotelBooking()"> 
+  <i class="fas fa-bed"></i> 
+  <span data-translate="bookHotelButton">Book a Hotel</span>
+</button>
+
+
+
+
+
+<!-- Hotel Filters -->
+<div class="filter-group">
+    <label for="hotelPriceRange">Price Range ($):</label>
+    <input type="range" id="hotelPriceRange" min="100" max="500" value="500" step="10" onchange="filterResults()">
+    <span id="hotelPriceValue">$500</span>
+</div>
+<br>
+<div class="filter-group">
+    <label for="ratingRange">Rating:</label>
+    <input type="range" id="ratingRange" min="0" max="5" value="5" step="0.1" onchange="filterResults()">
+    <span id="ratingValue">5.0</span>
+</div>
+<br>
+<div class="filter-group">
+    <label for="hotelArea">Select Area:</label>
+    <select id="hotelArea" onchange="filterResults()">
+        <option value="All">All Areas</option>
+        <option value="Champagne">Champagne</option>
+        <option value="Suisse">Suisse</option>
+        <option value="Central London">Central London</option>
+        <option value="Times Square">Times Square</option>
+    </select>
+</div>
+<br>
+<button onclick="showFlightBooking()"> 
+  <i class="fas fa-plane-departure"></i> 
+  <span data-translate="bookFlightButton">Book a Flight</span>
+</button>
+<br>
+<!-- Flight Filters -->
+<div class="filter-section">
+    <div class="filter-group">
+        <label for="flightPriceRange">Price Range ($):</label>
+        <input type="range" id="flightPriceRange" min="100" max="500" value="500" step="10" onchange="filterResults()">
+        <span id="flightPriceValue">$500</span>
+    </div>
+    <br>
+    <div class="filter-group">
+        <label for="flightAirline">Select Airline:</label>
+        <select id="flightAirline" onchange="filterResults()">
+            <option value="All">All Airlines</option>
+            <option value="PIA">PIA</option>
+            <option value="Emirates">Emirates</option>
+            <option value="Thai Airways">Thai Airways</option>
+        </select>
+    </div>
+</div>
+
+
+
+
+
+
+
+</div>
+    
+    <div class="main-content">
+        <h3 id="title">
+  <i class="fas fa-plane-departure"></i> 
+  <span data-translate="bookingTitle">Booking</span>
+</h3>
+         <div id="initialBooking">
+  <p data-translate="selectOption">Select an option to start booking your trip!</p>
+</div>
+        <!-- Recommendations for Hotels and Flights -->
+        <div class="recommendation-container" id="hotelRecommendations">
+        <div class="booking-item hotel" data-id="hotel1" data-price="200" data-rating="4.5" data-area="Champs-Élysées">
+    <h4 data-translate="hotelInParisTitle">Hotel in Paris</h4>
+    <img src="https://media.architecturaldigest.com/photos/665dd5b2fec3359240899bf5/16:9/w_2560%2Cc_limit/jcr_content%2520(1).jpg" alt="Hotel in Paris">
+    <p data-translate="hotelInParisPrice">$200/night</p>
+    <p data-translate="hotelInParisArea">Area: Champs-Élysées</p>
+    <p data-translate="hotelInParisFacilities">Facilities: Free Wi-Fi, Pool, Gym</p>
+    <p data-translate="hotelInParisRating">Rating: 4.5/5</p>
+  <button><a href="confirmhotel.html" style="text-decoration: none; color: inherit;">  <span data-translate="confirmHotelButton">Book Hotel</span> </a></button>
+</div>
+
+<div class="booking-item hotel" data-id="hotel2" data-price="180" data-rating="4.0" data-area="Central London">
+    <h4 data-translate="hotelInLondonTitle">Hotel in London</h4>
+    <img src="https://theluxuryeditor.com/wp-content/uploads/2023/08/28994049.jpg" alt="Hotel in London">
+    <p data-translate="hotelInLondonPrice">$180/night</p>
+    <p data-translate="hotelInLondonArea">Area: Central London</p>
+    <p data-translate="hotelInLondonFacilities">Facilities: Free Wi-Fi, Breakfast, Parking</p>
+    <p data-translate="hotelInLondonRating">Rating: 4.0/5</p>
+    <button><a href="confirmhotel.html" style="text-decoration: none; color: inherit;">  <span data-translate="confirmHotelButton">Book Hotel</span> </a></button>
+</div>
+
+<div class="booking-item hotel" data-id="hotel3" data-price="250" data-rating="4.7" data-area="Times Square">
+    <h4 data-translate="hotelInNewYorkTitle">Hotel in New York</h4>
+    <img src="https://digital.ihg.com/is/image/ihg/voco-new-york-6671510166-16x9" alt="Hotel in New York">
+    <p data-translate="hotelInNewYorkPrice">$250/night</p>
+    <p data-translate="hotelInNewYorkArea">Area: Times Square</p>
+    <p data-translate="hotelInNewYorkFacilities">Facilities: Free Wi-Fi, Gym, Restaurant</p>
+    <p data-translate="hotelInNewYorkRating">Rating: 4.7/5</p>
+  <button><a href="confirmhotel.html" style="text-decoration: none; color: inherit;">  <span data-translate="confirmHotelButton">Book Hotel</span> </a></button>
+</div>
+
+ <div class="booking-item hotel" data-id="hotel4" data-price="220" data-rating="4.3" data-area="Shinjuku">
+    <h4 data-translate="hotelInTokyoTitle">Hotel in Tokyo</h4>
+    <img src="https://www.thehotelguru.com/_images/ca/21/ca215b0764dce18af252fb4211540a31/600x422.jpg" alt="Hotel in Tokyo">
+    <p data-translate="hotelInTokyoPrice">$220/night</p>
+    <p data-translate="hotelInTokyoArea">Area: Shinjuku</p>
+    <p data-translate="hotelInTokyoFacilities">Facilities: Free Wi-Fi, Onsen, Spa</p>
+    <p data-translate="hotelInTokyoRating">Rating: 4.3/5</p>
+     <button><a href="confirmhotel.html" style="text-decoration: none; color: inherit;">  <span data-translate="confirmHotelButton">Confirm Hotel</span> </a></button>
+</div>
+
+
+ <div class="booking-item hotel" data-id="hotel5" data-price="280" data-rating="4.8" data-area="Dubai Marina">
+    <h4 data-translate="hotelInDubaiTitle">Hotel in Dubai</h4>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS26KaUpM2UggVG2by57XEwBYp3LnGehC83KQ&s" alt="Hotel in Dubai">
+    <p data-translate="hotelInDubaiPrice">$280/night</p>
+    <p data-translate="hotelInDubaiArea">Area: Dubai Marina</p>
+    <p data-translate="hotelInDubaiFacilities">Facilities: Free Wi-Fi, Pool, Spa, Parking</p>
+    <p data-translate="hotelInDubaiRating">Rating: 4.8/5</p>
+ 
+   <button><a href="confirmhotel.html" style="text-decoration: none; color: inherit;">  <span data-translate="confirmHotelButton">Book Hotel</span> </a></button>
+</div>
+
+
+ <div class="booking-item hotel" data-id="hotel6" data-price="210" data-rating="4.4" data-area="Circular Quay">
+    <h4 data-translate="hotelInSydneyTitle">Hotel in Sydney</h4>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCJrTv9n7vBmuXQ1FIIWsIszY8nWAYiV8bqQ&s" alt="Hotel in Sydney">
+    <p data-translate="hotelInSydneyPrice">$210/night</p>
+    <p data-translate="hotelInSydneyArea">Area: Circular Quay</p>
+    <p data-translate="hotelInSydneyFacilities">Facilities: Free Wi-Fi, Gym, Restaurant</p>
+    <p data-translate="hotelInSydneyRating">Rating: 4.4/5</p>
+   <button><a href="confirmhotel.html" style="text-decoration: none; color: inherit;">  <span data-translate="confirmHotelButton">Book Hotel</span> </a></button>
+</div>
+
+
+ <div class="booking-item hotel" data-id="hotel7" data-price="230" data-rating="4.6" data-area="Hollywood">
+    <h4 data-translate="hotelInLosAngelesTitle">Hotel in Los Angeles</h4>
+    <img src="https://content.r9cdn.net/himg/d1/22/e5/leonardo-8648962-166876845-969482.jpg" alt="Hotel in Los Angeles">
+    <p data-translate="hotelInLosAngelesPrice">$230/night</p>
+    <p data-translate="hotelInLosAngelesArea">Area: Hollywood</p>
+    <p data-translate="hotelInLosAngelesFacilities">Facilities: Free Wi-Fi, Pool, Bar, Gym</p>
+    <p data-translate="hotelInLosAngelesRating">Rating: 4.6/5</p>
+      <button><a href="confirmhotel.html" style="text-decoration: none; color: inherit;">  <span data-translate="confirmHotelButton">Book Hotel</span> </a></button>
+</div>
+
+ <div class="booking-item hotel" data-id="hotel8" data-price="150" data-rating="4.2" data-area=" Sukhumvit">
+    <h4 data-translate="hotelInBangkokTitle">Hotel in Bangkok</h4>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHFXbOTw_leEwDgfJ-DBKNCaY_G9HH87Ks4g&s" alt="Hotel in Bangkok">
+    <p data-translate="hotelInBangkokPrice">$150/night</p>
+    <p data-translate="hotelInBangkokArea">Area: Sukhumvit</p>
+    <p data-translate="hotelInBangkokFacilities">Facilities: Free Wi-Fi, Gym, Breakfast</p>
+    <p data-translate="hotelInBangkokRating">Rating: 4.2/5</p>
+    <button><a href="confirmhotel.html" style="text-decoration: none; color: inherit;">  <span data-translate="confirmHotelButton">Book Hotel</span> </a></button>
+</div>
+
+
+ <div class="booking-item hotel" data-id="hotel9" data-price="190" data-rating="4.7" data-area="Vatican City">
+    <h4 data-translate="hotelInRomeTitle">Hotel in Rome</h4>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTV457c_7TZ_D3Xo6nMvGnYd855i67vDzCzBw&s" alt="Hotel in Rome">
+    <p data-translate="hotelInRomePrice">$190/night</p>
+    <p data-translate="hotelInRomeArea">Area: Vatican City</p>
+    <p data-translate="hotelInRomeFacilities">Facilities: Free Wi-Fi, Breakfast, Parking</p>
+    <p data-translate="hotelInRomeRating">Rating: 4.7/5</p>
+   <button><a href="confirmhotel.html" style="text-decoration: none; color: inherit;"><span data-translate="confirmHotelButton">Book Hotel</span> </a></button>
+</div>
+</div>
+
+        <div class="recommendation-container" id="flightRecommendations">
+               <div class="booking-item flight" data-id="flight1" data-price="400"  data-airline="PIA" data-time="10:00 AM, 02:00 PM, 06:00 PM">
+    <h4 data-translate="flightToPakistanTitle">Flight to Pakistan</h4>
+    <img src="https://i.pinimg.com/736x/5d/de/d4/5dded407bd1b98c920cbdb60dddd8ca2.jpg" alt="Flight to Pakistan">
+    <p data-translate="flightToPakistanPrice">$400</p>
+    <p data-translate="flightToPakistanArea">Area: Karachi, Lahore, Islamabad</p>
+    <p data-translate="flightToPakistanTimings">Timings: 10:00 AM, 02:00 PM, 06:00 PM</p>
+    <p data-translate="flightToPakistanAirline">Airline: Pakistan International Airlines (PIA)</p>
+      <button><a href="flightbooking.html" style="text-decoration: none; color: inherit;">Book Flight</a></button> 
+</div>
+
+<div class="booking-item flight" data-id="flight2" data-price="350"  data-airline="Emirates" data-time="09:00 AM, 01:30 PM, 05:30 PM">
+    <h4 data-translate="flightToDubaiTitle">Flight to Dubai</h4>
+    <img src="https://i.pinimg.com/736x/5d/de/d4/5dded407bd1b98c920cbdb60dddd8ca2.jpg" alt="Flight to Dubai">
+    <p data-translate="flightToDubaiPrice">$350</p>
+    <p data-translate="flightToDubaiArea">Area: Dubai International Airport</p>
+    <p data-translate="flightToDubaiTimings">Timings: 09:00 AM, 01:30 PM, 05:30 PM, 7:30 PM, 9:30 PM, 11:00 PM</p>
+    <p data-translate="flightToDubaiAirline">Airline: Emirates Airlines</p>
+       <button><a href="flightbooking.html" style="text-decoration: none; color: inherit;">Book Flight</a></button> 
+</div>
+
+<div class="booking-item flight" data-id="flight3" data-price="300"  data-airline="Thai Airways" data-time=" 08:00 AM, 12:30 PM, 04:30 PM">
+    <h4 data-translate="flightToThailandTitle">Flight to Thailand</h4>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbJ9_mA4XkzoLF0QlmXbm_-dB1ASLh1Qjy10q0pTb3c0hA5lGXt4V5nxxN_-Q_c4S4oFc&usqp=CAU" alt="Flight to Thailand">
+    <p data-translate="flightToThailandPrice">$300</p>
+    <p data-translate="flightToThailandArea">Area: Bangkok, Phuket, Thai Airport</p>
+    <p data-translate="flightToThailandTimings">Timings: 08:00 AM, 12:30 PM, 04:30 PM, 7:30 PM, 9:00 PM, 11:00 PM</p>
+    <p data-translate="flightToThailandAirline">Airline: Thai Airways</p>
+     <button><a href="flightbooking.html" style="text-decoration: none; color: inherit;">Book Flight</a></button> 
+</div>
+
+<div class="booking-item flight" data-id="flight4" data-price="500"  data-airline=" Air France" data-time="07:00 AM, 11:00 AM, 03:00 PM">
+    <h4 data-translate="flightToParisTitle">Flight to Paris</h4>
+    <img src="https://assets.obj.ca/2023/03/Untitled-design-20-1024x576.jpg" alt="Flight to Paris">
+    <p data-translate="flightToParisPrice">$500</p>
+    <p data-translate="flightToParisArea">Area: Charles de Gaulle Airport, France Airport</p>
+    <p data-translate="flightToParisTimings">Timings: 07:00 AM, 11:00 AM, 03:00 PM</p>
+    <p data-translate="flightToParisAirline">Airline: Air France</p>
+     <button><a href="flightbooking.html" style="text-decoration: none; color: inherit;">Book Flight</a></button> 
+</div>
+<div class="booking-item flight" data-id="flight5" data-price="450"  data-airline="British Airways" data-time="06:30 AM, 10:30 AM, 02:30 PM">
+    <h4 data-translate="flightToLondonTitle">Flight to London</h4>
+    <img src="https://images.lifestyleasia.com/wp-content/uploads/sites/2/2023/03/08174342/british-airways-double-flights-2023-e1678268636679-1600x900.jpg" alt="Flight to London">
+    <p data-translate="flightToLondonPrice">$450</p>
+    <p data-translate="flightToLondonArea">Area: Heathrow Airport, London Airport</p>
+    <p data-translate="flightToLondonTimings">Timings: 06:30 AM, 10:30 AM, 02:30 PM</p>
+    <p data-translate="flightToLondonAirline">Airline: British Airways</p>
+     <button><a href="flightbooking.html" style="text-decoration: none; color: inherit;">Book Flight</a></button> 
+</div>
+
+<div class="booking-item flight" data-id="flight6" data-price="400"  data-airline="Qantas Airways" data-time="09:30 AM, 01:00 PM, 06:30 PM">
+    <h4 data-translate="flightToSydneyTitle">Flight to Sydney</h4>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnAZX8QN058IJOI95y6qzJe0vnjaDue5jmHQ&s" alt="Flight to Sydney">
+    <p data-translate="flightToSydneyPrice">$400</p>
+    <p data-translate="flightToSydneyArea">Area: Sydney Kingsford Smith Airport</p>
+    <p data-translate="flightToSydneyTimings">Timings: 09:30 AM, 01:00 PM, 06:30 PM</p>
+    <p data-translate="flightToSydneyAirline">Airline: Qantas Airways</p>
+     <button><a href="flightbooking.html" style="text-decoration: none; color: inherit;">Book Flight</a></button> 
+</div>
+
+<div class="booking-item flight" data-id="flight7" data-price="600"  data-airline="American Airlines" data-time="08:30 AM, 12:00 PM, 04:00 PM">
+    <h4 data-translate="flightToNewYorkTitle">Flight to New York</h4>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY2ClH5sVQCa42CvKW4eX2ViYSWu0U01TorQ&s" alt="Flight to New York">
+    <p data-translate="flightToNewYorkPrice">$600</p>
+    <p data-translate="flightToNewYorkArea">Area: John F. Kennedy International Airport</p>
+    <p data-translate="flightToNewYorkTimings">Timings: 08:30 AM, 12:00 PM, 04:00 PM</p>
+    <p data-translate="flightToNewYorkAirline">Airline: American Airlines</p>
+     <button><a href="flightbooking.html" style="text-decoration: none; color: inherit;">Book Flight </a></button> 
+</div>
+
+<div class="booking-item flight" data-id="flight8" data-price="450"  data-airline="Japan Airlines" data-time="10:00 AM, 02:00 PM, 06:00 PM">
+    <h4 data-translate="flightToTokyoTitle">Flight to Tokyo</h4>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1C6gMIJ7dCRJ-Amt9HTEtCINOCtyJWiV99A&s" alt="Flight to Tokyo">
+    <p data-translate="flightToTokyoPrice">$450</p>
+    <p data-translate="flightToTokyoArea">Area: Narita International Airport</p>
+    <p data-translate="flightToTokyoTimings">Timings: 10:00 AM, 02:00 PM, 06:00 PM</p>
+    <p data-translate="flightToTokyoAirline">Airline: Japan Airlines</p>
+       <button><a href="flightbooking.html" style="text-decoration: none; color: inherit;">Book Flight</a></button> 
+</div>
+
+<div class="booking-item flight" data-id="flight9" data-price="550"  data-airline="Delta Airlines" data-time=" 07:30 AM, 11:30 AM, 03:00 PM">
+    <h4 data-translate="flightToLosAngelesTitle">Flight to Los Angeles</h4>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS_mWInTpZZFbBIUQ8WXm5ipiuj2zgZGF5ug&s" alt="Flight to Los Angeles">
+    <p data-translate="flightToLosAngelesPrice">$550</p>
+    <p data-translate="flightToLosAngelesArea">Area: Los Angeles International Airport</p>
+    <p data-translate="flightToLosAngelesTimings">Timings: 07:30 AM, 11:30 AM, 03:00 PM</p>
+    <p data-translate="flightToLosAngelesAirline">Airline: Delta Airlines</p>
+    <button><a href="flightbooking.html" style="text-decoration: none; color: inherit;">Book Flight</a></button> 
+</div>
+
+</div>
+</div>
+
+
+        <!-- Notification Area -->
+        <div id="notification" class="notification"></div>
+    </div>
+
+    <!-- Footer Section -->
+ <footer>
+    <p data-translate="footerText"></p>
+</footer>
+ <div id="chatbotButton" onclick="toggleChat()" id="chatBtn" class="chatbot-button" aria-label="Open Chatbot" role="button" tabindex="0">
+  💬
+</div>
+
+<div id="chatContainer" class="chat-container" role="dialog" aria-labelledby="chatTitle" aria-hidden="true">
+    <div class="chat-header">
+        <span id="chatTitle" class="chat-title" data-translate="chatbotTitle">Travel Bot</span>
+        <span class="close-btn" onclick="closeChat()" aria-label="Close Chatbot">&#10006;</span> <!-- Close icon -->
+    </div>
+    <div id="chatBox" class="chat-box" aria-live="polite"></div>
+    <div class="chat-input-container">
+        <input type="text" id="userInput" placeholder="Ask me about travel..." oninput="autoGrow(this)" aria-label="Type your message" tabindex="0">
+        <button onclick="sendMessage()" aria-label="Send Message" tabindex="0">Send</button>
+    </div>
+</div>
+<script>
+   const chatContainer = document.getElementById("chatContainer");
+        const chatBox = document.getElementById("chatBox");
+        const userInput = document.getElementById("userInput");
+        const chatbotButton = document.getElementById("chatbotButton");
+
+        // Define responses with links
+       const responses = {
+    "hi": "Hello! How can I assist you with your travel planning?",
+    "hello": "Hi there! How can I help you plan your trip?",
+    "how to book a flight": "To book a flight, choose your destination and date, then fill in your details. You can start here: <a href='booking.html' target='_blank'>Book Now</a>.",
+    "how to book a hotel": "To book a hotel, select your destination, dates, and choose the room type. Check out our booking page: <a href='booking.html' target='_blank'>Book Now</a>.",
+    "recommend places": "Here are a few great destinations for you to explore:<br>1. <strong>Switzerland</strong> - Known for its stunning mountains and serene lakes.<br>2. <strong>Italy</strong> - A beautiful blend of art, culture, and history.<br>3. <strong>Canada</strong> - A perfect destination for nature lovers.<br><br>To learn more about these destinations, visit our <a href='destinations.html' target='_blank'>Explore Destinations</a>.",
+    "recommend hotels": "Some great hotels for a summer vacation are The Ritz-Carlton, Four Seasons, and Marriott. Would you like to book one? Visit our <a href='booking.html' target='_blank'>Book Now</a> page.",
+    "things to do in bali": "In Bali, you can enjoy the beaches, visit the temples, or hike Mount Agung! Explore more in our <a href='destinations.html' target='_blank'>Explore Destinations</a> section.",
+    "best time to visit paris": "The best time to visit Paris is from April to June or September to November, when the weather is mild and the crowds are smaller.",
+    "flights to bali": "I recommend checking with major airlines like Emirates, Qatar Airways, and Garuda Indonesia for flights to Bali. You can book your flight here: <a href='booking.html' target='_blank'>Book Now</a>.",
+    "hotels in bali": "Some great hotels in Bali are The Four Seasons Resort at Jimbaran Bay, The St. Regis Bali, and Ayana Resort. Book your stay at: <a href='booking.html' target='_blank'>Book Now</a>.",
+    "default": "I'm sorry, I didn't understand that. Can you please ask something else?"
+};
+
+
+        // Toggle chat visibility
+        function toggleChat() {
+            if (chatContainer.style.display === "none" || !chatContainer.style.display) {
+                chatContainer.style.display = "block";
+                chatbotButton.style.display = "none";
+            } else {
+                chatContainer.style.display = "none";
+                chatbotButton.style.display = "block";
+            }
+        }
+
+        // Close chat
+        function closeChat() {
+            chatContainer.style.display = "none";
+            chatbotButton.style.display = "block";
+        }
+
+        // Send message function
+        function sendMessage() {
+            const userText = userInput.value.trim();
+            if (userText !== "") {
+                const userMessage = document.createElement("div");
+                userMessage.classList.add("user-message");
+                userMessage.textContent = userText;
+                chatBox.appendChild(userMessage);
+
+                const botResponse = document.createElement("div");
+                botResponse.classList.add("bot-response");
+                botResponse.innerHTML = getBotResponse(userText); // Use innerHTML to render links
+                chatBox.appendChild(botResponse);
+
+                chatBox.scrollTop = chatBox.scrollHeight;
+                userInput.value = "";
+            }
+        }
+
+        // Get bot response with regular expression for flexible matching
+        function getBotResponse(userText) {
+            const userTextLower = userText.toLowerCase();
+
+            // Match various forms of asking for recommendations or places
+            if (/recommend.*places|suggest.*places|recommend.*place|places.*to.*go|places|recommendations|show.*places|where.*to.*go/.test(userTextLower)) {
+                return responses["recommend places"];
+            }
+
+            // Match phrases related to booking flights
+            if (/how.*book.*flight|how.*book.*ticket|book.*flight|flight.*booking|flight|booking/.test(userTextLower)) {
+                return responses["how to book a flight"];
+            }
+
+            // Match phrases related to booking hotels
+            if (/how.*book.*hotel|how.*book.*room|book.*hotel|hotel.*booking|hotel|booking/.test(userTextLower)) {
+                return responses["how to book a hotel"];
+            }
+
+ if (/hi/.test(userTextLower)) {
+                return responses["hi"];
+            }
+if (/hello/.test(userTextLower)) {
+                return responses["hello"];
+            }
+            // Default response if no match
+            return responses["default"];
+        }
+
+        // Auto-resize input field
+        function autoGrow(field) {
+            field.style.height = "24px";
+            field.style.height = (field.scrollHeight) + "px";
+        }    
+</script>
+<script>
+
+
+// Check if the invert-colors class should be applied on page load
+if (localStorage.getItem('isInverted') === 'true') {
+    document.body.classList.add('invert-colors');
+}
+
+// Toggle the "invert-colors" class and update localStorage
+document.getElementById('invertColorsButton').addEventListener('click', function () {
+    document.body.classList.toggle('invert-colors');
+    const isInverted = document.body.classList.contains('invert-colors');
+    localStorage.setItem('isInverted', isInverted); // Save the state
+});
+
+            const translations = {
+    en: {
+            home: "Home",
+            aboutUs: "About Us",
+            contactUs: "Contact Us",
+            feedback: "Feedback",
+            fillForm: "Fill Form",
+            bookNow: "Book Now",
+            exploreDestinations: "Explore Destinations",
+            statistics: "Statistics and Analytics",
+            searchPlaceholder: "Search your package",
+	    searchPlaceholders: "Search your package",
+package: "Package",
+            package1: "Package 1",
+package2: "Package 2",
+package3: "Package 3",
+package4: "Package 4",
+package5: "Package 5",
+package6: "Package 6",
+package7: "Package 7",
+package8: "Package 8",
+package9: "Package 9",
+package10: "Package 10",
+package11: "Package 11",
+package12: "Package 12",
+            countries: "Countries ",
+            duration: "Duration ",
+            hotels: "Hotels ",
+            price: "Price",
+            bookNowButton: "Book Now",
+footerText: " 2024 Travel Agency. All rights reserved.",
+ pakistan: "Pakistan",
+        china: "China",
+        india: "India",
+        america: "America",
+        london: "London",
+        paris: "Paris",
+        canada: "Canada",
+        switzerland: "Switzerland",
+        pcHotel: "PC Hotel, Murree",
+        peninsulaBeijing: "The Peninsula Beijing",
+        tajMahalPalace: "Taj Mahal Palace, Mumbai",
+        sevenDays: "7 Days",
+fiveDays: "5 Days",
+elevenDays: "11 Days",
+countries: "Countries ",
+ meetOurTeamTitle: "Meet Our Team",
+noResultsMessage: "No Result Found.",
+
+        duration: "Duration ",
+        famousPlaces: "Famous Places",
+        knownFor: "Known For",
+        price: "Price ",
+        errorMessage: "Package not found",
+        switzerland: "Switzerland",
+        france: "France",
+        italy: "Italy",
+        barotas: "Barotas",
+        earlyPastoral: "Early Pastoral",
+        paris: "Paris",
+        hotelEternally: "Hotel Eternally",
+        tenDays: "10 Days",
+        twoThousand: "$2,000",
+        spain: "Spain",
+        greece: "Greece",
+        eightDays: "8 Days",
+        venice: "Venice",
+        barcelona: "Barcelona",
+        santorini: "Santorini",
+        oneThousandEightHundred: "$1,800",
+        japan: "Japan",
+        southKorea: "South Korea",
+        china: "China",
+        sevenDays: "7 Days",
+        tokyo: "Tokyo",
+        seoul: "Seoul",
+        oneThousandSevenHundred: "$1,700",
+        australia: "Australia",
+        newZealand: "New Zealand",
+        fiji: "Fiji",
+        nineDays: "9 Days",
+        shangriLa: "Shangri-La",
+        hilton: "Hilton",
+        likulikulLaguna: "Likulikul Laguna Resort",
+        twoThousandTwoHundred: "$2,200",
+        egypt: "Egypt",
+        morocco: "Morocco",
+        tunisia: "Tunisia",
+        sixDays: "6 Days",
+        fourSeasons: "Four Seasons Hotel",
+        royalMansour: "Royal Mansour",
+        laBoveda: "La Boveda",
+        oneThousandFourHundred: "$1,400",
+        usa: "USA",
+        canada: "Canada",
+        mexico: "Mexico",
+        twelveDays: "12 Days",
+        desertCollege: "Desert College",
+        furmanBanffSpring: "Furman Banff Spring",
+        rosewoodMayakoba: "Rosewood Mayakoba",
+        threeThousand: "$3,000",
+        turkey: "Turkey",
+        cyprus: "Cyprus",
+        sigrimPalace: "Sigrim Palace",
+        canberra: "Canberra",
+        iceland: "Iceland",
+        thailand: "Thailand",
+        madridOriental: "Madrid Oriental",
+        franceBelgiumNetherlands: "France, Belgium, Netherlands",
+        tenDays: "10 Days",
+        maldives: "Maldives",
+        sriLanka: "Sri Lanka",
+        sonevaFushi: "Soneva Fushi",
+        russiaUkraineBelarus: "Russia, Ukraine, Belarus",
+        metropol: "Hotel Metropol",
+newYearDiscount: "New Year Discount.... 10% off on ALL TRIPS From 20th December 2024 to 20th January 2025.... Avail amazing offers now....Book your dream trip...Start NEW YEAR with new ADVENTURE",
+beachsideResortTitle: "Beachside Resort",
+        beachsideResortPrice: "$150 per night",
+        confirmHotelButton: "Confirm Hotel",
+ hotelDanieliVenice: "Hotel Danieli, Venice",
+  hotelArtsBarcelona: "Hotel Arts, Barcelona",
+  canavesOiaSantorini: "Canaves Oia, Santorini",
+  parkHyattTokyo: "Park Hyatt Tokyo",
+  shillaSeoul: "The Shilla Seoul",
+  peninsulaBeijing: "The Peninsula Beijing",
+  shangriLaSydney: "Shangri-La, Sydney",
+  hiltonAuckland: "Hilton Auckland",
+  likulikuLagoonResort: "Likuliku Lagoon Resort",
+  sheratonAddis: "Sheraton Addis",
+  giraffeManor: "Giraffe Manor",
+  ngorongoroCraterLodge: "Ngorongoro Crater Lodge",
+  atlantisThePalm: "Atlantis, The Palm",
+  alBustanPalace: "Al Bustan Palace",
+  bananaIslandResortDoha: "Banana Island Resort Doha",
+  copacabanaPalace: "Copacabana Palace",
+  alvearPalaceHotel: "Alvear Palace Hotel",
+  singularPatagonia: "The Singular Patagonia",
+  theSiamHotel: "The Siam Hotel",
+  rafflesHotelLeRoyal: "Raffles Hotel Le Royal",
+  intercontinentalHanoiWestlake: "InterContinental Hanoi Westlake",
+  theNileRitzCarlton: "The Nile Ritz-Carlton",
+  laMamounia: "La Mamounia",
+  theResidenceTunis: "The Residence Tunis",
+badruttsPalace: "Badrutt's Palace",
+  leBristolParis: "Le Bristol Paris",
+  theShillaSeoul: "The Shilla Seoul",
+  thePeninsulaBeijing: "The Peninsula Beijing",
+  ethiopia: "Ethiopia",
+  kenya: "Kenya",
+  tanzania: "Tanzania",
+  uae: "UAE",
+  oman: "Oman",
+  qatar: "Qatar",
+  atlantisThePalm: "Atlantis, The Palm",
+  brazil: "Brazil",
+  argentina: "Argentina",
+  chile: "Chile",
+  malaysia: "Malaysia",
+  theDataiLangkawi: "The Datai Langkawi",
+  singapore: "Singapore",
+  marinaBaySands: "Marina Bay Sands",
+  anantaraSiamBangkokResort: "Anantara Siam Bangkok Resort",
+  cambodia: "Cambodia",
+  vietnam: "Vietnam",
+  theSiamHotel: "The Siam Hotel",
+  seychelles: "Seychelles",
+  amangalla: "Amangalla",
+  northIsland: "North Island",
+  theNileRitzCarlton: "The Nile Ritz-Carlton",
+  theResidenceTunis: "The Residence Tunis",
+        fifteenHundred: "$1500",
+       
+
+    welcomeMessage: "Welcome to Our Travel Planning Service",
+    introParagraph1: "We are a passionate team of travel experts dedicated to helping you plan the perfect trip. Whether you're looking for a relaxing beach vacation, a thrilling adventure, or a cultural experience, we have the knowledge and experience to make your dream journey come to life.",
+    introParagraph2: "Our goal is to provide customized travel experiences that cater to your preferences and interests. With our extensive network of partners and our deep understanding of global destinations, we ensure that every trip is stress-free and unforgettable.",
+    introParagraph3: "From choosing the right destination to booking your flights and accommodations, we are here to assist you every step of the way. We believe in making travel accessible, enjoyable, and affordable for everyone. Let us be your travel companion and guide you to the best experiences around the world.",
+    ceoTitle: "Tayquan Raja",
+    ceoRole: "CEO & Founder",
+    ceoDescription: "Tayquan is the visionary behind our company, bringing over 10 years of experience in the travel industry to the table. She ensures that every aspect of our service exceeds expectations.",
+    specialistTitle: "Tabeen Raja",
+    specialistRole: "Travel Specialist",
+    specialistDescription: "Tabeen has traveled to over 50 countries and specializes in creating best packages to your interests and budget.",
+    supportTitle: "Rubab Sabir",
+    supportRole: "Customer Support",
+    supportDescription: "Rubab is always ready to help you with any questions or issues you may have before, during, or after your trip. She's passionate about delivering exceptional customer service.",
+ bookHotelFlightTitle: "Book Your Hotel or Flight",
+        bookHotelButton: "Book a Hotel",
+        bookFlightButton: "Book a Flight",
+        bookingTitle: "Booking",
+        selectOption: "Select an option to start booking your trip!",
+        grandHotelTitle: "Grand Hotel",
+        grandHotelPrice: "$200 per night",
+        confirmHotelButton: "Confirm Hotel",
+        cityCenterInnTitle: "City Center Inn",
+        luxuryPalaceTitle: "Luxury Palace",
+        luxuryPalacePrice: "$350 per night",
+        seasideEscapeTitle: "Seaside Escape",
+        seasideEscapePrice: "$220 per night",
+        mountainViewLodgeTitle: "Mountain View Lodge",
+        mountainViewLodgePrice: "$180 per night",
+        flightToPakistanTitle: "Flight to Pakistan",
+        flightToPakistanPrice: "$400",
+        confirmFlightButton: "Confirm Flight",
+ flightToDubaiTitle: "Flight to Dubai",
+        flightToDubaiPrice: "$350",
+        flightToThailandTitle: "Flight to Thailand",
+        flightToThailandPrice: "$300",
+        flightToParisTitle: "Flight to Paris",
+        flightToParisPrice: "$500",
+        flightToLondonTitle: "Flight to London",
+        flightToLondonPrice: "$450",
+        flightToSydneyTitle: "Flight to Sydney",
+        flightToSydneyPrice: "$400",
+        confirmFlightButton: "Confirm Flight",
+     cityCenterInnPrice: "$100 per night",
+
+
+   
+    },
+    ur: {
+      
+        cityCenterInnPrice: "100 ڈالر فی رات",
+        flightToDubaiTitle: "دبئی کے لیے پرواز",
+        flightToDubaiPrice: "350 ڈالر",
+        flightToThailandTitle: "تھائی لینڈ کے لیے پرواز",
+        flightToThailandPrice: "300 ڈالر",
+        flightToParisTitle: "پیرس کے لیے پرواز",
+        flightToParisPrice: "500 ڈالر",
+        flightToLondonTitle: "لندن کے لیے پرواز",
+        flightToLondonPrice: "450 ڈالر",
+        flightToSydneyTitle: "سڈنی کے لیے پرواز",
+        flightToSydneyPrice: "400 ڈالر",
+        confirmFlightButton: "پرواز کی تصدیق کریں",
+
+        bookHotelFlightTitle: "اپنا ہوٹل یا پرواز بک کریں",
+        bookHotelButton: "ہوٹل بک کریں",
+        bookFlightButton: "پرواز بک کریں",
+        bookingTitle: "بکنگ",
+        selectOption: "اپنے سفر کی بکنگ شروع کرنے کے لیے ایک آپشن منتخب کریں!",
+        grandHotelTitle: "گرینڈ ہوٹل",
+        grandHotelPrice: "200 ڈالر فی رات",
+        confirmHotelButton: "ہوٹل کی تصدیق کریں",
+        cityCenterInnTitle: "سٹی سینٹر ان",
+        luxuryPalaceTitle: "لگژری پیلس",
+        luxuryPalacePrice: "350 ڈالر فی رات",
+        seasideEscapeTitle: "سی سائیڈ اسکیپ",
+        seasideEscapePrice: "220 ڈالر فی رات",
+        mountainViewLodgeTitle: "ماؤنٹین ویو لاج",
+        mountainViewLodgePrice: "180 ڈالر فی رات",
+        flightToPakistanTitle: "پاکستان کے لیے پرواز",
+        flightToPakistanPrice: "400 ڈالر",
+        confirmFlightButton: "پرواز کی تصدیق کریں",
+beachsideResortTitle: "بیچ سائیڈ ریزورٹ",
+        beachsideResortPrice: "150 ڈالر فی رات",
+        confirmHotelButton: "ہوٹل کی تصدیق کریں",
+    welcomeMessage: "ہمارے سفر کی منصوبہ بندی کی خدمت میں خوش آمدید",
+    introParagraph1: "ہم سفر کے ماہرین کی ایک پرجوش ٹیم ہیں جو آپ کو بہترین سفر کی منصوبہ بندی میں مدد کرنے کے لئے وقف ہیں۔ چاہے آپ ایک آرام دہ ساحلی تعطیل، ایک دلچسپ مہم جوئی، یا ایک ثقافتی تجربہ تلاش کر رہے ہوں، ہمارے پاس آپ کے خوابوں کا سفر حقیقت بنانے کے لئے علم اور تجربہ موجود ہے۔",
+    introParagraph2: "ہمارا مقصد یہ ہے کہ ہم آپ کی ترجیحات اور دلچسپیوں کے مطابق سفری تجربات فراہم کریں۔ اپنے شراکت داروں کے وسیع نیٹ ورک اور عالمی مقامات کے بارے میں گہری سمجھ کے ساتھ، ہم اس بات کو یقینی بناتے ہیں کہ ہر سفر بغیر کسی پریشانی کے یادگار ہو۔",
+    introParagraph3: "صحیح مقام کا انتخاب کرنے سے لے کر آپ کی پروازوں اور رہائش کا انتظام کرنے تک، ہم ہر قدم پر آپ کی مدد کے لئے موجود ہیں۔ ہم یقین رکھتے ہیں کہ سفر کو سب کے لئے قابل رسائی، خوشگوار، اور سستا بنانا چاہئے۔ ہمیں اپنا سفری ساتھی بننے دیں اور دنیا بھر میں بہترین تجربات تک آپ کی رہنمائی کریں۔",
+    ceoTitle: "طیقوان راجہ",
+    ceoRole: "سی ای او اور بانی",
+    ceoDescription: "طیقوان ہمارے ادارے کے پیچھے وژنری ہیں، جو سفر کی صنعت میں 10 سال سے زیادہ کے تجربے کے ساتھ خدمت فراہم کرتے ہیں۔ وہ اس بات کو یقینی بناتی ہیں کہ ہماری خدمت کے ہر پہلو توقعات سے بڑھ کر ہو۔",
+    specialistTitle: "تبین راجہ",
+    specialistRole: "سفر کے ماہر",
+    specialistDescription: "تبین نے 50 سے زیادہ ممالک کا سفر کیا ہے اور آپ کی دلچسپیوں اور بجٹ کے مطابق بہترین پیکیج تیار کرنے میں مہارت رکھتی ہیں۔",
+    supportTitle: "رباب صابر",
+    supportRole: "کسٹمر سپورٹ",
+    supportDescription: "رباب ہمیشہ آپ کے سوالات یا مسائل کے ساتھ مدد کرنے کے لئے تیار رہتی ہیں، چاہے وہ سفر سے پہلے، دوران، یا بعد میں ہوں۔ وہ بہترین کسٹمر سروس فراہم کرنے کے بارے میں پرجوش ہیں۔",
+ meetOurTeamTitle: "ہماری ٹیم سے ملیں",
+            home: "صفحہ اول",
+            aboutUs: "ہمارے بارے میں",
+            contactUs: "ہم سے رابطہ کریں",
+            feedback: "تبصرے",
+            fillForm: "فارم بھریں",
+            bookNow: "ابھی بک کریں",
+            exploreDestinations: "مقامات تلاش کریں",
+            statistics: "اعدادوشمار اور تجزیات",
+            searchPlaceholder: "اپنے پیکیج کی تلاش کریں",
+searchPlaceholders: "اپنے پیکیج کی تلاش کریں",
+package: "پیکیج ",
+            package1: "پیکیج 1",
+package2: "پیکیج 2",
+package3: "پیکیج 3",
+package4: "پیکیج 4",
+package5: "پیکیج 5",
+package6: "پیکیج 6",
+package7: "پیکیج 7",
+package8: "پیکیج 8",
+package9: "پیکیج 9",
+package10: "پیکیج 10",
+package11: "پیکیج 11",
+package12: "پیکیج 12",
+
+ noResultsMessage: "کوئی نتیجہ نہیں ملا۔",
+
+            countries: " ممالک ",
+            duration: " مدت",
+            hotels: " ہوٹل",
+            price: " قیمت",
+            bookNowButton: "ابھی بک کریں",
+ footerText: " 2024 ٹریول ایجنسی۔ جملہ حقوق محفوظ ہیں۔",
+pakistan: "پاکستان",
+        china: "چین",
+        india: "بھارت",
+        america: "امریکہ",
+        london: "لندن",
+        paris: "پیرس",
+        canada: "کینیڈا",
+        switzerland: "سوئٹزرلینڈ",
+        pcHotel: "پی سی ہوٹل، مری",
+        peninsulaBeijing: "دی پیننسولا بیجنگ",
+        tajMahalPalace: "تاج محل پیلس، ممبئی",
+        sevenDays: "7 دن",
+fiveDays: "5 دن",
+elevenDays: "11 دن",
+        famousPlaces: "مشہور مقامات",
+        knownFor: "مشہور",
+       
+        errorMessage: "پیکیج دستیاب نہیں",
+        switzerland: "سوئٹزرلینڈ",
+        france: "فرانس",
+        italy: "اٹلی",
+        barotas: "باروتاس",
+        earlyPastoral: "ابتدائی چراگاہ",
+        paris: "پیرس",
+        hotelEternally: "ہوٹل ابدی",
+        tenDays: "10 دن",
+        twoThousand: "$2,000",
+        spain: "اسپین",
+        greece: "یونان",
+        eightDays: "8 دن",
+        venice: "وینس",
+        barcelona: "بارسلونا",
+        santorini: "سینٹورینی",
+        oneThousandEightHundred: "$1,800",
+        japan: "جاپان",
+        southKorea: "جنوبی کوریا",
+        china: "چین",
+        sevenDays: "7 دن",
+        tokyo: "ٹوکیو",
+        seoul: "سیول",
+        oneThousandSevenHundred: "$1,700",
+        australia: "آسٹریلیا",
+        newZealand: "نیوزی لینڈ",
+        fiji: "فجی",
+        nineDays: "9 دن",
+        shangriLa: "شانگری لا",
+        hilton: "ہلٹن",
+        likulikulLaguna: "لیکولیکل لگونا ریزورٹ",
+        twoThousandTwoHundred: "$2,200",
+        egypt: "مصر",
+        morocco: "مراکش",
+        tunisia: "تیونس",
+        sixDays: "6 دن",
+        fourSeasons: "فور سیزنز ہوٹل",
+        royalMansour: "رائل منصور",
+        laBoveda: "لا بویدا",
+        oneThousandFourHundred: "$1,400",
+        usa: "امریکہ",
+        canada: "کینیڈا",
+        mexico: "میکسیکو",
+        twelveDays: "12 دن",
+        desertCollege: "ڈیزرٹ کالج",
+        furmanBanffSpring: "فرمین بینف اسپرنگ",
+        rosewoodMayakoba: "روز ووڈ مایاکوبا",
+        threeThousand: "$3,000",
+        turkey: "ترکی",
+        cyprus: "قبرص",
+        sigrimPalace: "سیگرم پیلس",
+        canberra: "کینبرا",
+        iceland: "آئس لینڈ",
+        thailand: "تھائی لینڈ",
+        madridOriental: "میڈرڈ اورینٹل",
+        franceBelgiumNetherlands: "فرانس، بیلجیم، نیدرلینڈز",
+        tenDays: "10 دن",
+        maldives: "مالدیپ",
+        sriLanka: "سری لنکا",
+        sonevaFushi: "سونیوا فوشی",
+        russiaUkraineBelarus: "روس، یوکرین، بیلاروس",
+        metropol: "ہوٹل میٹروپول",
+hotelDanieliVenice: "ہوٹل ڈینیئلی، وینس",
+  hotelArtsBarcelona: "ہوٹل آرٹس، بارسلونا",
+  canavesOiaSantorini: "کینیوس اویا، سانٹورینی",
+  parkHyattTokyo: "پارک حیات ٹوکیو",
+  shillaSeoul: "دی شیلا سیول",
+  peninsulaBeijing: "دی پینینسولا بیجنگ",
+  shangriLaSydney: "شنگری لا، سڈنی",
+  hiltonAuckland: "ہلٹن آکلینڈ",
+  likulikuLagoonResort: "لیکولیکو لاگوں ریزورٹ",
+  sheratonAddis: "شیراٹون ایڈیس",
+  giraffeManor: "جراف مینر",
+  ngorongoroCraterLodge: "نگورونگورو کریٹر لوج",
+newYearDiscount: "نئے سال کی خصوصی رعایت.... تمام سفروں پر 10% کی چھوٹ 20 دسمبر 2024 سے 20 جنوری 2025 تک.... شاندار پیشکشوں سے فائدہ اٹھائیں.... اپنی خوابوں کی چھٹی بک کریں.... نئے سال کا آغاز ایک نئے ایڈونچر کے ساتھ کریں",
+
+  atlantisThePalm: "ایٹلانٹس، دی پام",
+  alBustanPalace: "ال بستاں پیلس",
+  bananaIslandResortDoha: "بنانا آئی لینڈ ریزورٹ دوحہ",
+  copacabanaPalace: "کاپاکابانا پیلس",
+  alvearPalaceHotel: "الویئر پیلس ہوٹل",
+  singularPatagonia: "دی سنگولر پیٹاگونیا",
+  theSiamHotel: "دی سیام ہوٹل",
+  rafflesHotelLeRoyal: "ریفلز ہوٹل لی رائل",
+  intercontinentalHanoiWestlake: "انٹرکانٹینینٹل ہنوئی ویسٹ لیک",
+  theNileRitzCarlton: "دی نائل رٹز کارلٹن",
+  laMamounia: "لا مامونیا",
+  theResidenceTunis: "دی ریزیڈنس تونس",
+badruttsPalace: "بدرٹس پیلس",
+  leBristolParis: "لے برسٹل پیرس",
+  theShillaSeoul: "دی شیلا سیول",
+  thePeninsulaBeijing: "دی پینینسولا بیجنگ",
+  ethiopia: "ایتھوپیا",
+  kenya: "کینیا",
+  tanzania: "تنزانیہ",
+  uae: "متحدہ عرب امارات",
+  oman: "عمان",
+  qatar: "قطر",
+  atlantisThePalm: "ایٹلانٹس، دی پام",
+  brazil: "برازیل",
+  argentina: "ارجنٹینا",
+  chile: "چلی",
+  malaysia: "ملائیشیا",
+  theDataiLangkawi: "دی ڈٹائی لنکاوی",
+  singapore: "سنگاپور",
+  marinaBaySands: "مرینا بے سینڈز",
+  anantaraSiamBangkokResort: "اناتارا سیام بینکاک ریزورٹ",
+  cambodia: "کمبوڈیا",
+  vietnam: "ویتنام",
+  theSiamHotel: "دی سیام ہوٹل",
+  seychelles: "سیشلز",
+  amangalla: "امانگالا",
+  northIsland: "نارتھ آئی لینڈ",
+  theNileRitzCarlton: "دی نائل رٹز کارلٹن",
+  theResidenceTunis: "دی ریزیڈنس تونس",
+        fifteenHundred: "$1500"
+        }
+    };
+ function switchLanguage(lang) {
+    // Update all translatable elements
+    const elements = document.querySelectorAll("[data-translate]");
+    elements.forEach((el) => {
+        const key = el.getAttribute("data-translate");
+        el.textContent = translations[lang][key] || el.textContent;
+    });
+
+    // Update input placeholders
+    const searchInput = document.getElementById("search-input");
+    if (searchInput) {
+        searchInput.placeholder = translations[lang]["searchPlaceholder"] || searchInput.placeholder;
+    }
+
+    const searchInputs = document.getElementById("search-inputs");
+    if (searchInputs) {
+        searchInputs.placeholder = translations[lang]["searchPlaceholders"] || searchInputs.placeholder;
+    }
+
+    // Set document language and direction
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ur" ? "rtl" : "ltr";
+
+    // Save the selected language to localStorage
+    localStorage.setItem("language", lang);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Get the saved language or default to English
+    const savedLanguage = localStorage.getItem("language") || "en";
+    switchLanguage(savedLanguage);
+
+    // Handle language selector
+    const languageSelector = document.getElementById("language");
+    if (languageSelector) {
+        languageSelector.value = savedLanguage;
+        languageSelector.addEventListener("change", (e) => {
+            const selectedLanguage = e.target.value;
+            switchLanguage(selectedLanguage);
+        });
+    }
+
+    // Listen for language changes on other pages
+    window.addEventListener("storage", (event) => {
+        if (event.key === "language" && event.newValue) {
+            switchLanguage(event.newValue);
+        }
+    });
+});
+</script>
+
+
+
+    <script>
+        function showHotelBooking() {
+            document.getElementById("title").innerHTML = '<i class="fas fa-bed"></i> Book a Hotel';
+            document.getElementById("hotelRecommendations").style.display = 'grid';
+            document.getElementById("flightRecommendations").style.display = 'none';
+        }
+
+
+        function showFlightBooking() {
+            document.getElementById("title").innerHTML = '<i class="fas fa-plane-departure"></i> Book a Flight';
+            document.getElementById("flightRecommendations").style.display = 'grid';
+            document.getElementById("hotelRecommendations").style.display = 'none';
+        }
+
+
+
+
+function updateFlightTiming(value) {
+    document.getElementById('flight-timing-value').innerText = `${value} hours`;
+}
+function confirmHotel(hotelName) {
+    const notification = document.getElementById("notification");
+    const lang = document.documentElement.lang || "en"; // Get the current language
+    
+    // Translate hotel name based on language
+    const translatedHotelName = translations[lang][hotelName] || hotelName;
+
+    const message = lang === "ur" 
+        ? `${translatedHotelName} بک ہو گیا ہے!` 
+        : `${translatedHotelName} has been booked!`;
+    
+    notification.textContent = message;
+    notification.style.display = "block";
+    setTimeout(() => notification.style.display = "none", 3000);
+}
+
+function confirmFlight(flightName) {
+    const notification = document.getElementById("notification");
+    const lang = document.documentElement.lang || "en"; // Get the current language
+    
+    // Translate flight name based on language
+    const translatedFlightName = translations[lang][flightName] || flightName;
+
+    const message = lang === "ur" 
+        ? `${translatedFlightName} بک ہو گئی ہے!` 
+        : `${translatedFlightName} has been booked!`;
+    
+    notification.textContent = message;
+    notification.style.display = "block";
+    setTimeout(() => notification.style.display = "none", 3000);
+}
+
+    </script>
+
+
+<script>
+// Update the price and rating values dynamically for hotels
+document.getElementById("hotelPriceRange").addEventListener("input", function () {
+    document.getElementById("hotelPriceValue").textContent = `$${this.value}`;
+    filterResults();
+});
+
+document.getElementById("ratingRange").addEventListener("input", function () {
+    document.getElementById("ratingValue").textContent = this.value;
+    filterResults();
+});
+
+// Update the price value dynamically for flights
+document.getElementById("flightPriceRange").addEventListener("input", function () {
+    document.getElementById("flightPriceValue").textContent = `$${this.value}`;
+    filterResults();
+});
+
+// Listen for airline dropdown changes
+document.getElementById("flightAirline").addEventListener("change", function () {
+    filterResults();
+});
+
+// Filter Results Function
+function filterResults() {
+    const hotelPriceFilter = parseFloat(document.getElementById("hotelPriceRange").value);
+    const ratingFilter = parseFloat(document.getElementById("ratingRange").value);
+    const areaFilter = document.getElementById("hotelArea").value;
+
+    const flightPriceFilter = parseFloat(document.getElementById("flightPriceRange").value);
+    const airlineFilter = document.getElementById("flightAirline").value;
+
+    const bookingItems = document.querySelectorAll(".booking-item");
+
+    bookingItems.forEach((item) => {
+        const itemPrice = parseFloat(item.getAttribute("data-price"));
+        const itemRating = parseFloat(item.getAttribute("data-rating"));
+        const itemArea = item.getAttribute("data-area");
+        const itemAirline = item.getAttribute("data-airline");
+
+        const hotelMatches = item.classList.contains("hotel") &&
+            itemPrice <= hotelPriceFilter &&
+            itemRating >= ratingFilter &&
+            (areaFilter === "All" || itemArea === areaFilter);
+
+        const flightMatches = item.classList.contains("flight") &&
+            itemPrice <= flightPriceFilter &&
+            (airlineFilter === "All" || itemAirline === airlineFilter);
+
+        if (hotelMatches || flightMatches) {
+            item.style.display = "block";
+        } else {
+            item.style.display = "none";
+        }
+    });
+}
+
+</script>
+</html>

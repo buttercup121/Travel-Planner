@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Contact Us - Travel Plan</title>
+   <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+ 
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Inline CSS for quick styling */
+        body {
+            font-family: Arial, sans-serif;
+             background-color: #34495e;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+      .top-left-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+ #confirmationMessage {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            z-index: 1000;
+        }
+
+.top-left-image img {
+    width: 105px; /* Set the width as per your preference */
+    height:  50px;
+}
+.invert-button:hover {
+ background-color: #34495e;
+            border-radius: 5px;
+}
+
+header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px ;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        header .top-left-image {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        header nav {
+            margin-top: 0px;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 0px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+        }
+
+        header nav a:hover {
+            background-color: #34495e;
+            border-radius: 5px;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: 50px auto;
+            background-color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        label {
+            font-size: 1.2em;
+            color: #2c3e50;
+        }
+
+        input, textarea {
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 150px;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            font-size: 1.2em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Footer Section */
+        footer {
+            
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin-top: 50px;
+        }
+ .search-containers {
+            display: flex;
+            justify-content: center;
+            align-items: right;
+            height: auto;
+            margin: 0;
+position: absolute;
+    top: 10px;
+    right: 0;
+
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            margin: 0;
+        }
+header select{
+background-color: #34495e;
+color: white;
+border: 1px solid #ecf0f1;
+padding: 5px;
+fornt-size:16px;
+}
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #f8f8f8;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            padding: 5px 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            padding: 10px;
+            border-radius: 25px;
+            flex: 1;
+            font-size: 1rem;
+        }
+.search-bar inputs {
+            border: none;
+            outline: none;
+            padding: 10px;
+            border-radius: 25px;
+            flex: 1;
+            font-size: 1rem;
+        }
+
+        .search-bar button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0 10px;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .search-bar button i {
+            font-size: 1.2rem;
+        }
+
+
+  /* Inverts colors for the entire body */
+.invert-colors {
+    filter: invert(1);
+    background-color: black;
+    color: white;
+}
+
+.invert-button {
+    all: unset; /* Resets all default styles */
+    padding: 10px 15px; /* Matches the nav link padding */
+    font-size: 1.1em; /* Matches the nav link font size */
+    cursor: pointer;
+    color: white; /* Matches the nav link text color */
+    background-color: transparent; /* Ensures no background by default */
+    text-decoration: none; /* Removes any underline */
+    margin: 0 5px; /* Adjust margin for spacing */
+    transition: all 0.3s ease; /* Matches nav link transitions */
+    display: inline-block; /* Ensures consistent layout */
+    border: none; /* Removes button borders */
+    border-radius: 0; /* No default border radius */
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+/* Add a pulsing animation */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+.invert-button img {
+    width: 24px;
+    height: 24px;
+    filter: invert(100%);
+}
+
+.invert-button:hover img {
+    filter: invert(100%);
+} 
+
+       /* Main Chatbot Button */
+.chatbot-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(45deg, #1e90ff, #00bfff);
+    color: white;
+    font-size: 24px;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.chatbot-button:hover {
+    background-color: #0056b3;
+}
+
+/* Chatbot Container */
+.chat-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 350px;
+    height: 450px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    display: none; /* Hidden by default */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    z-index: 9999;
+}
+
+/* Chat Header */
+.chat-header {
+   background: linear-gradient(45deg, #1e90ff, #00bfff);
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Close Button */
+.close-btn {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #f44336;
+}
+
+/* Chat Box */
+.chat-box {
+    padding: 15px;
+    height: 300px;
+    overflow-y: auto;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    border-bottom: 1px solid #ddd;
+}
+
+/* User and Bot Messages */
+.user-message, .bot-response {
+    margin: 10px 0;
+    padding: 8px;
+    border-radius: 10px;
+    max-width: 80%;
+}
+
+.user-message {
+    background-color: #d1e7ff;
+    color: #333; /* Darker text for readability */
+    align-self: flex-start;
+}
+
+.bot-response {
+    background-color: #f1f1f1;
+    color: #333; /* Darker text for readability */
+    align-self: flex-end;
+}
+
+/* Chat Input Section */
+.chat-input-container {
+    display: flex;
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#userInput {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-right: 10px;
+}
+
+button {
+     background: linear-gradient(45deg, #1e90ff, #00bfff);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Hide the chat window when it's closed */
+.chat-container.hidden {
+    display: none;
+}
+  .walking-person {
+      position: absolute;
+      left: 0;
+      top: 50%; /* Center vertically */
+      transform: translateY(-50%);
+      width: 48px;
+      height: 30px; /* Height for walking person */
+      margin-right: 20px; /* Increase space between person and stars */
+    }
+    .body {
+      fill: white;
+    }
+
+    .leg-left, .leg-right {
+      fill: white;
+      animation: walk-legs 0.8s ease-in-out infinite;
+      transform-origin: top;
+    }
+
+    .leg-right {
+      animation-delay: 0.4s; /* Opposite movement for the other leg */
+    }
+
+    .arm-left, .arm-right {
+      fill:  white;
+      animation: swing-arms 0.8s ease-in-out infinite;
+      transform-origin: top;
+    }
+
+    .arm-right {
+      animation-delay: 0.4s; /* Opposite movement for the other arm */
+    }
+
+    /* Legs Walking Animation */
+    @keyframes walk-legs {
+      0%, 100% {
+        transform: rotate(20deg);
+      }
+      50% {
+        transform: rotate(-20deg);
+      }
+    }
+
+    /* Arms Swinging Animation */
+    @keyframes swing-arms {
+      0%, 100% {
+        transform: rotate(-20deg);
+      }
+      50% {
+        transform: rotate(20deg);
+      }
+    }
+   .stars {
+      margin-left: 70px; /* Adjust this value to set the gap between stars and walking person */
+      display: flex;
+      align-items: center;
+    }
+
+    .stars i {
+      margin-right: 5px; /* Space between stars */
+    }
+
+    </style>
+</head>
+<body>
+
+<!-- Header Section -->
+<header role="banner">
+    <nav role="navigation">
+        <div class="top-left-image">
+            <img src="C:\Users\WALLED TRADERS\OneDrive\Pictures\Saved Pictures\logo.jpeg" alt="Travel Planner Logo">
+        </div>
+        <a href="homepage.html" id="homeBtn" aria-label="Go to Home" tabindex="0">
+            <i class="fas fa-home"></i> <span data-translate="home">Home</span>
+        </a>
+        <a href="aboutus.html" id="aboutusBtn" aria-label="About Us" tabindex="0">
+            <i class="fas fa-info-circle"></i> <span data-translate="aboutUs">About Us</span>
+        </a>
+        <a href="contact.html" id="contactBtn" aria-label="Contact Us" tabindex="0">
+            <i class="fas fa-phone-alt fa-flip-horizontal"></i> <span data-translate="contactUs">Contact Us</span>
+        </a>
+        <a href="feedback.html" id="feedbackBtn" aria-label="Feedback" tabindex="0">
+            <i class="fas fa-comment-dots"></i> <span data-translate="feedback">Feedback</span>
+        </a>
+   <button id="invertColorsButton" class="invert-button" aria-label="Invert Colors">
+    <i class="fas fa-adjust"></i> <span data-translate="invertColors">Invert Colors</span>
+
+</button>
+
+        <label for="language" id="lanBtn" class="sr-only">Select Language</label>
+        <select id="language" aria-label="Select Language" tabindex="0">
+            <option value="en">English</option>
+            <option value="ur">اردو</option>
+            <option value="zh">中文</option>
+            <option value="ru">Русский</option>
+            <option value="ar">العربية</option>
+            <option value="tr">Türkçe</option>
+            <option value="de">Deutsch</option>
+        </select>
+    </nav>
+
+    <div class="search-containers">
+        <div class="search-bar">
+            <label for="search-inputs" class="sr-only">Search your package</label>
+            <input type="text" placeholder="Search your package" id="search-inputs" aria-label="Search Packages" tabindex="0">
+            <button onclick="performSearchs()" aria-label="Search">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+
+    <br>
+
+    <marquee role="region" aria-label="Scrolling Animation with Walking Person">
+        <div class="walking-person" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+                <!-- Head -->
+                <circle cx="30" cy="10" r="6" class="body" />
+                <!-- Body -->
+                <rect x="26" y="18" width="6" height="13" class="body" />
+                <!-- Left Leg -->
+                <rect class="leg-left" x="26" y="38" width="4" height="8" />
+                <!-- Right Leg -->
+                <rect class="leg-right" x="30" y="38" width="4" height="8" />
+                <!-- Left Arm -->
+                <rect class="arm-left" x="22" y="23" width="4" height="6" />
+                <!-- Right Arm -->
+                <rect class="arm-right" x="34" y="23" width="4" height="6" />
+            </svg>
+        </div>
+
+        <div class="stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <span data-translate="newYearDiscount">New Year Discount</span>
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+    </marquee>
+</header>
+
+
+
+<!-- Contact Form Section -->
+<div class="contact-container">
+    
+    <h1 data-translate="contactUs">Contact Us</h1>
+    <p data-translate="contactDescription">If you have any questions, please feel free to reach out to us by filling out the form below.</p>
+    
+    <div id="confirmationMessage" style="display: none;">Thank you for your message! It has been sent successfully.</div>
+    <form action="#" method="POST" id="contactForm">
+
+        <label for="name"><i class="fas fa-user"></i> <span data-translate="fullName">Full Name</span></label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email"><i class="fas fa-envelope"></i> <span data-translate="emailAddress">Email Address</span></label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message"><i class="fas fa-message"></i> <span data-translate="yourMessage">Your Message</span></label>
+        <textarea id="message" name="message" required></textarea>
+
+        <body>
+   
+
+    <button type="submit">
+    <i class="fas fa-envelope"></i> <!-- Font Awesome icon -->
+    <span data-translate="submitButton">Send Message</span>
+</button>
+    </form>
+  
+</div>
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Show the confirmation message
+    const confirmationMessage = document.getElementById('confirmationMessage');
+    confirmationMessage.style.display = 'block';
+
+    // Optionally, you can hide the message after a few seconds
+    setTimeout(() => {
+        confirmationMessage.style.display = 'none';
+    }, 3000); // Hide after 5 seconds
+
+    // Optionally, you can reset the form fields
+   /* this.reset();*/
+});
+</script>
+<!-- Footer Section -->
+ <footer>
+    <p data-translate="footerText"></p>
+</footer>
+ <div id="chatbotButton" onclick="toggleChat()" id="chatBtn" class="chatbot-button" aria-label="Open Chatbot" role="button" tabindex="0">
+  💬
+</div>
+
+<div id="chatContainer" class="chat-container" role="dialog" aria-labelledby="chatTitle" aria-hidden="true">
+    <div class="chat-header">
+        <span id="chatTitle" class="chat-title" data-translate="chatbotTitle">Travel Bot</span>
+        <span class="close-btn" onclick="closeChat()" aria-label="Close Chatbot">&#10006;</span> <!-- Close icon -->
+    </div>
+    <div id="chatBox" class="chat-box" aria-live="polite"></div>
+    <div class="chat-input-container">
+        <input type="text" id="userInput" placeholder="Ask me about travel..." oninput="autoGrow(this)" aria-label="Type your message" tabindex="0">
+        <button onclick="sendMessage()" aria-label="Send Message" tabindex="0">Send</button>
+    </div>
+</div>
+<script>
+
+window.onload = function() {
+        // Autofill form fields if data exists in localStorage
+        if (localStorage.getItem('name')) {
+            document.getElementById('name').value = localStorage.getItem('name');
+        }
+     
+        if (localStorage.getItem('email')) {
+            document.getElementById('email').value = localStorage.getItem('email');
+        }
+    };
+  const chatContainer = document.getElementById("chatContainer");
+        const chatBox = document.getElementById("chatBox");
+        const userInput = document.getElementById("userInput");
+        const chatbotButton = document.getElementById("chatbotButton");
+
+        // Define responses with links
+       const responses = {
+    "hi": "Hello! How can I assist you with your travel planning?",
+    "hello": "Hi there! How can I help you plan your trip?",
+    "how to book a flight": "To book a flight, choose your destination and date, then fill in your details. You can start here: <a href='booking.html' target='_blank'>Book Now</a>.",
+    "how to book a hotel": "To book a hotel, select your destination, dates, and choose the room type. Check out our booking page: <a href='booking.html' target='_blank'>Book Now</a>.",
+    "recommend places": "Here are a few great destinations for you to explore:<br>1. <strong>Switzerland</strong> - Known for its stunning mountains and serene lakes.<br>2. <strong>Italy</strong> - A beautiful blend of art, culture, and history.<br>3. <strong>Canada</strong> - A perfect destination for nature lovers.<br><br>To learn more about these destinations, visit our <a href='destinations.html' target='_blank'>Explore Destinations</a>.",
+    "recommend hotels": "Some great hotels for a summer vacation are The Ritz-Carlton, Four Seasons, and Marriott. Would you like to book one? Visit our <a href='booking.html' target='_blank'>Book Now</a> page.",
+    "things to do in bali": "In Bali, you can enjoy the beaches, visit the temples, or hike Mount Agung! Explore more in our <a href='destinations.html' target='_blank'>Explore Destinations</a> section.",
+    "best time to visit paris": "The best time to visit Paris is from April to June or September to November, when the weather is mild and the crowds are smaller.",
+    "flights to bali": "I recommend checking with major airlines like Emirates, Qatar Airways, and Garuda Indonesia for flights to Bali. You can book your flight here: <a href='booking.html' target='_blank'>Book Now</a>.",
+    "hotels in bali": "Some great hotels in Bali are The Four Seasons Resort at Jimbaran Bay, The St. Regis Bali, and Ayana Resort. Book your stay at: <a href='booking.html' target='_blank'>Book Now</a>.",
+    "default": "I'm sorry, I didn't understand that. Can you please ask something else?"
+};
+
+
+        // Toggle chat visibility
+        function toggleChat() {
+            if (chatContainer.style.display === "none" || !chatContainer.style.display) {
+                chatContainer.style.display = "block";
+                chatbotButton.style.display = "none";
+            } else {
+                chatContainer.style.display = "none";
+                chatbotButton.style.display = "block";
+            }
+        }
+
+        // Close chat
+        function closeChat() {
+            chatContainer.style.display = "none";
+            chatbotButton.style.display = "block";
+        }
+
+        // Send message function
+        function sendMessage() {
+            const userText = userInput.value.trim();
+            if (userText !== "") {
+                const userMessage = document.createElement("div");
+                userMessage.classList.add("user-message");
+                userMessage.textContent = userText;
+                chatBox.appendChild(userMessage);
+
+                const botResponse = document.createElement("div");
+                botResponse.classList.add("bot-response");
+                botResponse.innerHTML = getBotResponse(userText); // Use innerHTML to render links
+                chatBox.appendChild(botResponse);
+
+                chatBox.scrollTop = chatBox.scrollHeight;
+                userInput.value = "";
+            }
+        }
+
+        // Get bot response with regular expression for flexible matching
+        function getBotResponse(userText) {
+            const userTextLower = userText.toLowerCase();
+
+            // Match various forms of asking for recommendations or places
+            if (/recommend.*places|suggest.*places|recommend.*place|places.*to.*go|places|recommendations|show.*places|where.*to.*go/.test(userTextLower)) {
+                return responses["recommend places"];
+            }
+
+            // Match phrases related to booking flights
+            if (/how.*book.*flight|how.*book.*ticket|book.*flight|flight.*booking|flight|booking/.test(userTextLower)) {
+                return responses["how to book a flight"];
+            }
+
+            // Match phrases related to booking hotels
+            if (/how.*book.*hotel|how.*book.*room|book.*hotel|hotel.*booking|hotel|booking/.test(userTextLower)) {
+                return responses["how to book a hotel"];
+            }
+
+ if (/hi/.test(userTextLower)) {
+                return responses["hi"];
+            }
+if (/hello/.test(userTextLower)) {
+                return responses["hello"];
+            }
+            // Default response if no match
+            return responses["default"];
+        }
+
+        // Auto-resize input field
+        function autoGrow(field) {
+            field.style.height = "24px";
+            field.style.height = (field.scrollHeight) + "px";
+        }    
+</script>
+<script>
+
+
+// Check if the invert-colors class should be applied on page load
+if (localStorage.getItem('isInverted') === 'true') {
+    document.body.classList.add('invert-colors');
+}
+
+// Toggle the "invert-colors" class and update localStorage
+document.getElementById('invertColorsButton').addEventListener('click', function () {
+    document.body.classList.toggle('invert-colors');
+    const isInverted = document.body.classList.contains('invert-colors');
+    localStorage.setItem('isInverted', isInverted); // Save the state
+});
+
+            const translations = {
+    en: {
+contactUs: "Contact Us",
+    contactDescription: "If you have any questions, please feel free to reach out to us by filling out the form below.",
+    fullName: "Full Name",
+    emailAddress: "Email Address",
+    yourMessage: "Your Message",
+    sendMessage: "Send Message",
+            home: "Home",
+            aboutUs: "About Us",
+            contactUs: "Contact Us",
+            feedback: "Feedback",         
+            statistics: "Statistics and Analytics",
+            searchPlaceholder: "Search your package",
+	    searchPlaceholders: "Search your package",
+footerText: " 2024 Travel Agency. All rights reserved.",
+ pakistan: "Pakistan",      
+invertColors: "Invert Colors",
+newYearDiscount: "New Year Discount.... 10% off on ALL TRIPS From 20th December 2024 to 20th January 2025.... Avail amazing offers now....Book your dream trip...Start NEW YEAR with new ADVENTURE"   
+},
+ru: {
+    contactUs: "Связаться с нами",
+    contactDescription: "Если у вас есть вопросы, не стесняйтесь связаться с нами, заполнив форму ниже.",
+    fullName: "Полное имя",
+    emailAddress: "Электронная почта",
+    yourMessage: "Ваше сообщение",
+    sendMessage: "Отправить сообщение",
+    home: "Главная",
+    aboutUs: "О нас",
+    feedback: "Отзыв",
+    statistics: "Статистика и аналитика",
+    searchPlaceholder: "Поиск вашего пакета",
+    searchPlaceholders: "Поиск вашего пакета",
+    footerText: "2024 Туристическое агентство. Все права защищены.",
+    pakistan: "Пакистан",
+    invertColors: "Инвертировать цвета",
+    newYearDiscount: "Новогодняя скидка... Скидка 10% на ВСЕ ПОЕЗДКИ с 20 декабря 2024 года по 20 января 2025 года... Используйте удивительные предложения прямо сейчас... Забронируйте свою мечту... Начните НОВЫЙ ГОД с нового ПРИКЛЮЧЕНИЯ"
+  },
+de: {
+    contactUs: "Kontaktieren Sie uns",
+    contactDescription: "Wenn Sie Fragen haben, können Sie uns gerne erreichen, indem Sie das untenstehende Formular ausfüllen.",
+    fullName: "Vollständiger Name",
+    emailAddress: "E-Mail-Adresse",
+    yourMessage: "Ihre Nachricht",
+    sendMessage: "Nachricht senden",
+    home: "Startseite",
+    aboutUs: "Über uns",
+    feedback: "Feedback",
+    statistics: "Statistiken und Analysen",
+    searchPlaceholder: "Suchen Sie Ihr Paket",
+    searchPlaceholders: "Suchen Sie Ihr Paket",
+    footerText: "2024 Reiseagentur. Alle Rechte vorbehalten.",
+    pakistan: "Pakistan",
+    invertColors: "Farben umkehren",
+    newYearDiscount: "Neujahrsrabatt.... 10% Rabatt auf ALLE REISEN vom 20. Dezember 2024 bis 20. Januar 2025.... Nutzen Sie jetzt erstaunliche Angebote.... Buchen Sie Ihre Traumreise... Starten Sie das NEUE JAHR mit einem neuen ABENTEUER"
+  },
+ tr: {
+    contactUs: "Bize Ulaşın",
+    contactDescription: "Herhangi bir sorunuz varsa, lütfen aşağıdaki formu doldurarak bizimle iletişime geçmekten çekinmeyin.",
+    fullName: "Tam Ad",
+    emailAddress: "E-posta Adresi",
+    yourMessage: "Mesajınız",
+    sendMessage: "Mesaj Gönder",
+    home: "Ana Sayfa",
+    aboutUs: "Hakkımızda",
+    feedback: "Geri Bildirim",
+    statistics: "İstatistikler ve Analizler",
+    searchPlaceholder: "Paketinizi Arayın",
+    searchPlaceholders: "Paketinizi Arayın",
+    footerText: "2024 Seyahat Acentası. Tüm hakları saklıdır.",
+    pakistan: "Pakistan",
+    invertColors: "Renkleri Tersine Çevir",
+    newYearDiscount: "Yeni Yıl İndirimi.... 20 Aralık 2024 ile 20 Ocak 2025 tarihleri arasında TÜM TURLARDA %10 indirim.... Şimdi harika teklifleri yakalayın....Hayalinizdeki tatili rezerve edin... YENİ YILA yeni BİR MACERA ile başlayın"
+  },
+ ar: {
+    contactUs: "اتصل بنا",
+    contactDescription: "إذا كان لديك أي أسئلة، لا تتردد في التواصل معنا عن طريق ملء النموذج أدناه.",
+    fullName: "الاسم الكامل",
+    emailAddress: "عنوان البريد الإلكتروني",
+    yourMessage: "رسالتك",
+    sendMessage: "إرسال الرسالة",
+    home: "الصفحة الرئيسية",
+    aboutUs: "معلومات عنا",
+    feedback: "التعليقات",
+    statistics: "الإحصائيات والتحليلات",
+    searchPlaceholder: "ابحث عن حزمتك",
+    searchPlaceholders: "ابحث عن حزمتك",
+    footerText: "وكالة السفر 2024. جميع الحقوق محفوظة.",
+    pakistan: "باكستان",
+    invertColors: "عكس الألوان",
+    newYearDiscount: "خصم رأس السنة.... خصم 10% على جميع الرحلات من 20 ديسمبر 2024 إلى 20 يناير 2025.... استفد من العروض المذهلة الآن.... احجز رحلتك الحلم... ابدأ العام الجديد مع مغامرة جديدة"
+  },
+zh: {
+ invertColors: "反转颜色",
+    contactUs: "联系我们",
+    contactDescription: "如果您有任何问题，请随时通过填写以下表格与我们联系。",
+    fullName: "全名",
+    emailAddress: "电子邮件地址",
+    yourMessage: "您的信息",
+    sendMessage: "发送信息",
+    home: "首页",
+    aboutUs: "关于我们",
+    feedback: "反馈",
+    statistics: "统计与分析",
+    searchPlaceholder: "搜索您的套餐",
+    searchPlaceholders: "搜索您的套餐",
+    footerText: "2024旅行社。版权所有。",
+    pakistan: "巴基斯坦",
+    newYearDiscount: "新年折扣.... 2024年12月20日至2025年1月20日，所有旅行10%折扣....立即享受惊人优惠....预订您的梦想旅行...以新的冒险开始新的一年"
+  },
+ur: {
+ invertColors: "رنگ تبدیل کریں",
+  contactUs: "ہم سے رابطہ کریں",
+    contactDescription: "اگر آپ کے کوئی سوالات ہیں تو براہ کرم نیچے دیا گیا فارم پُر کرکے ہم سے رابطہ کریں۔",
+    fullName: "مکمل نام",
+    emailAddress: "ای میل پتہ",
+    yourMessage: "آپ کا پیغام",
+    sendMessage: "پیغام بھیجیں",
+            home: "صفحہ اول",
+            aboutUs: "ہمارے بارے میں",
+            contactUs: "ہم سے رابطہ کریں",
+            feedback: "تبصرے",
+            fillForm: "فارم بھریں",
+            bookNow: "ابھی بک کریں",
+            exploreDestinations: "مقامات تلاش کریں",
+            statistics: "اعدادوشمار اور تجزیات",
+            searchPlaceholder: "اپنے پیکیج کی تلاش کریں",
+searchPlaceholders: "اپنے پیکیج کی تلاش کریں",
+package: "پیکیج ",
+          
+
+ noResultsMessage: "کوئی نتیجہ نہیں ملا۔",
+
+            countries: " ممالک ",
+            duration: " مدت",
+            hotels: " ہوٹل",
+            price: " قیمت",
+            bookNowButton: "ابھی بک کریں",
+ footerText: " 2024 ٹریول ایجنسی۔ جملہ حقوق محفوظ ہیں۔",
+pakistan: "پاکستان",
+        china: "چین",
+        india: "بھارت",
+        america: "امریکہ",
+        london: "لندن",
+        paris: "پیرس",
+        canada: "کینیڈا",
+        switzerland: "سوئٹزرلینڈ",
+        pcHotel: "پی سی ہوٹل، مری",
+        peninsulaBeijing: "دی پیننسولا بیجنگ",
+        tajMahalPalace: "تاج محل پیلس، ممبئی",
+        sevenDays: "7 دن",
+fiveDays: "5 دن",
+elevenDays: "11 دن",
+        famousPlaces: "مشہور مقامات",
+        knownFor: "مشہور",
+       
+        errorMessage: "پیکیج دستیاب نہیں",
+        switzerland: "سوئٹزرلینڈ",
+        france: "فرانس",
+        italy: "اٹلی",
+        barotas: "باروتاس",
+        earlyPastoral: "ابتدائی چراگاہ",
+        paris: "پیرس",
+        hotelEternally: "ہوٹل ابدی",
+        tenDays: "10 دن",
+        twoThousand: "$2,000",
+        spain: "اسپین",
+        greece: "یونان",
+        eightDays: "8 دن",
+        venice: "وینس",
+        barcelona: "بارسلونا",
+        santorini: "سینٹورینی",
+        oneThousandEightHundred: "$1,800",
+        japan: "جاپان",
+        southKorea: "جنوبی کوریا",
+        china: "چین",
+        sevenDays: "7 دن",
+        tokyo: "ٹوکیو",
+        seoul: "سیول",
+        oneThousandSevenHundred: "$1,700",
+        australia: "آسٹریلیا",
+        newZealand: "نیوزی لینڈ",
+        fiji: "فجی",
+        nineDays: "9 دن",
+        shangriLa: "شانگری لا",
+        hilton: "ہلٹن",
+        likulikulLaguna: "لیکولیکل لگونا ریزورٹ",
+        twoThousandTwoHundred: "$2,200",
+        egypt: "مصر",
+        morocco: "مراکش",
+        tunisia: "تیونس",
+        sixDays: "6 دن",
+        fourSeasons: "فور سیزنز ہوٹل",
+        royalMansour: "رائل منصور",
+        laBoveda: "لا بویدا",
+        oneThousandFourHundred: "$1,400",
+        usa: "امریکہ",
+        canada: "کینیڈا",
+        mexico: "میکسیکو",
+        twelveDays: "12 دن",
+        desertCollege: "ڈیزرٹ کالج",
+        furmanBanffSpring: "فرمین بینف اسپرنگ",
+        rosewoodMayakoba: "روز ووڈ مایاکوبا",
+        threeThousand: "$3,000",
+        turkey: "ترکی",
+        cyprus: "قبرص",
+        sigrimPalace: "سیگرم پیلس",
+        canberra: "کینبرا",
+        iceland: "آئس لینڈ",
+        thailand: "تھائی لینڈ",
+        madridOriental: "میڈرڈ اورینٹل",
+        franceBelgiumNetherlands: "فرانس، بیلجیم، نیدرلینڈز",
+        tenDays: "10 دن",
+        maldives: "مالدیپ",
+        sriLanka: "سری لنکا",
+        sonevaFushi: "سونیوا فوشی",
+        russiaUkraineBelarus: "روس، یوکرین، بیلاروس",
+        metropol: "ہوٹل میٹروپول",
+hotelDanieliVenice: "ہوٹل ڈینیئلی، وینس",
+  hotelArtsBarcelona: "ہوٹل آرٹس، بارسلونا",
+  canavesOiaSantorini: "کینیوس اویا، سانٹورینی",
+  parkHyattTokyo: "پارک حیات ٹوکیو",
+  shillaSeoul: "دی شیلا سیول",
+  peninsulaBeijing: "دی پینینسولا بیجنگ",
+  shangriLaSydney: "شنگری لا، سڈنی",
+  hiltonAuckland: "ہلٹن آکلینڈ",
+  likulikuLagoonResort: "لیکولیکو لاگوں ریزورٹ",
+  sheratonAddis: "شیراٹون ایڈیس",
+  giraffeManor: "جراف مینر",
+  ngorongoroCraterLodge: "نگورونگورو کریٹر لوج",
+newYearDiscount: "نئے سال کی خصوصی رعایت.... تمام سفروں پر 10% کی چھوٹ 20 دسمبر 2024 سے 20 جنوری 2025 تک.... شاندار پیشکشوں سے فائدہ اٹھائیں.... اپنی خوابوں کی چھٹی بک کریں.... نئے سال کا آغاز ایک نئے ایڈونچر کے ساتھ کریں",
+
+  atlantisThePalm: "ایٹلانٹس، دی پام",
+  alBustanPalace: "ال بستاں پیلس",
+  bananaIslandResortDoha: "بنانا آئی لینڈ ریزورٹ دوحہ",
+  copacabanaPalace: "کاپاکابانا پیلس",
+  alvearPalaceHotel: "الویئر پیلس ہوٹل",
+  singularPatagonia: "دی سنگولر پیٹاگونیا",
+  theSiamHotel: "دی سیام ہوٹل",
+  rafflesHotelLeRoyal: "ریفلز ہوٹل لی رائل",
+  intercontinentalHanoiWestlake: "انٹرکانٹینینٹل ہنوئی ویسٹ لیک",
+  theNileRitzCarlton: "دی نائل رٹز کارلٹن",
+  laMamounia: "لا مامونیا",
+  theResidenceTunis: "دی ریزیڈنس تونس",
+badruttsPalace: "بدرٹس پیلس",
+  leBristolParis: "لے برسٹل پیرس",
+  theShillaSeoul: "دی شیلا سیول",
+  thePeninsulaBeijing: "دی پینینسولا بیجنگ",
+  ethiopia: "ایتھوپیا",
+  kenya: "کینیا",
+  tanzania: "تنزانیہ",
+  uae: "متحدہ عرب امارات",
+  oman: "عمان",
+  qatar: "قطر",
+  atlantisThePalm: "ایٹلانٹس، دی پام",
+  brazil: "برازیل",
+  argentina: "ارجنٹینا",
+  chile: "چلی",
+  malaysia: "ملائیشیا",
+  theDataiLangkawi: "دی ڈٹائی لنکاوی",
+  singapore: "سنگاپور",
+  marinaBaySands: "مرینا بے سینڈز",
+  anantaraSiamBangkokResort: "اناتارا سیام بینکاک ریزورٹ",
+  cambodia: "کمبوڈیا",
+  vietnam: "ویتنام",
+  theSiamHotel: "دی سیام ہوٹل",
+  seychelles: "سیشلز",
+  amangalla: "امانگالا",
+  northIsland: "نارتھ آئی لینڈ",
+  theNileRitzCarlton: "دی نائل رٹز کارلٹن",
+  theResidenceTunis: "دی ریزیڈنس تونس",
+        fifteenHundred: "$1500"
+        }
+    };
+ function switchLanguage(lang) {
+    // Update all translatable elements
+    const elements = document.querySelectorAll("[data-translate]");
+    elements.forEach((el) => {
+        const key = el.getAttribute("data-translate");
+        el.textContent = translations[lang][key] || el.textContent;
+    });
+
+    // Update input placeholders
+    const searchInput = document.getElementById("search-input");
+    if (searchInput) {
+        searchInput.placeholder = translations[lang]["searchPlaceholder"] || searchInput.placeholder;
+    }
+
+    const searchInputs = document.getElementById("search-inputs");
+    if (searchInputs) {
+        searchInputs.placeholder = translations[lang]["searchPlaceholders"] || searchInputs.placeholder;
+    }
+
+    // Set document language and direction
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ur" ? "rtl" : "ltr";
+
+    // Save the selected language to localStorage
+    localStorage.setItem("language", lang);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Get the saved language or default to English
+    const savedLanguage = localStorage.getItem("language") || "en";
+    switchLanguage(savedLanguage);
+
+    // Handle language selector
+    const languageSelector = document.getElementById("language");
+    if (languageSelector) {
+        languageSelector.value = savedLanguage;
+        languageSelector.addEventListener("change", (e) => {
+            const selectedLanguage = e.target.value;
+            switchLanguage(selectedLanguage);
+        });
+    }
+
+    // Listen for language changes on other pages
+    window.addEventListener("storage", (event) => {
+        if (event.key === "language" && event.newValue) {
+            switchLanguage(event.newValue);
+        }
+    });
+});
+</script>
+<script>
+
+        function performSearchs() {
+    const query = document.getElementById("search-inputs").value.toLowerCase();
+    const packages = document.querySelectorAll(".package-box");
+    let found = false;
+
+    // Hide the "No results" message initially
+    const noResultsMessage = document.getElementById("no-results-message");
+    noResultsMessage.style.display = "none";
+
+    // Check each package for a match
+    packages.forEach((packageBox) => {
+      const title = packageBox.querySelector("h3").textContent.toLowerCase();
+      if (title.includes(query)) {
+        packageBox.style.display = "block";
+        found = true;
+      } else {
+        packageBox.style.display = "none";
+      }
+    });
+
+    // Show "No results found" if nothing matches
+    if (!found) {
+      noResultsMessage.style.display = "block";
+    }
+  }
+</script>
+
+</body>
+</html>
